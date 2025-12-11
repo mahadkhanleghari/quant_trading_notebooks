@@ -1,5 +1,0 @@
-regime,realized_vol_mean,spread_ma_mean,imbalance_ma_mean,volume_surge_mean,returns_1min_mean,returns_1min_std,fwd_return_5min_mean,regime_name,observation_count,observation_pct
-0.0,0.142132,0.000874,0.018883,1.021498,4.3e-05,0.007436,0.000443,"Low Vol, Wide Spread",4477,24.1
-1.0,0.119286,0.000716,0.015918,1.000554,0.00011,0.006244,-1.5e-05,"Low Vol, Tight Spread",7202,38.7
-2.0,0.208434,0.000768,0.141378,0.99258,0.001611,0.010829,0.00045,"High Vol, Wide Spread",2855,15.3
-3.0,0.189235,0.000754,-0.106239,0.981653,-0.000988,0.009828,0.001133,"High Vol, Tight Spread",4070,21.9

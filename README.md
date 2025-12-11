@@ -6,8 +6,18 @@ A collection of systematic trading strategy experiments and market microstructur
 
 ```
 ├── data/                           # Market data storage
+│   └── BTC_minute_data.csv
 ├── experiments/                    # Individual trading experiments
 │   └── crypto_microstructure_analysis/
+│       ├── crypto_microstructure_analysis.ipynb
+│       ├── generate_data.py
+│       └── README.md
+├── results/                        # Generated results and outputs
+│   └── crypto_microstructure_analysis/
+│       ├── data/                   # CSV exports
+│       ├── images/                 # High-quality plots
+│       ├── reports/                # Text reports
+│       └── crypto_microstructure_analysis.html
 ├── requirements.txt               # Python dependencies
 └── README.md                     # This file
 ```
