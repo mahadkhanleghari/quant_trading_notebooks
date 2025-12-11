@@ -1,0 +1,26 @@
+# Core Scientific Computing
+numpy
+pandas
+scipy
+
+# Machine Learning
+scikit-learn
+# Statistical Analysis
+statsmodels
+
+# Visualization
+matplotlib
+seaborn
+
+# Data API
+polygon-api-client
+python-dotenv
+
+# Jupyter
+jupyter
+notebook
+ipykernel
+
+# Utilities
+requests
+urllib3
