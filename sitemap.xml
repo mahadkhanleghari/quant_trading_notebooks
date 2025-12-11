@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://mahadkhanleghari.github.io/quant_trading_notebooks/</loc>
+         <lastmod>2025-12-11</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://mahadkhanleghari.github.io/quant_trading_notebooks/crypto_microstructure_analysis_files/crypto_microstructure_analysis/</loc>
+         <lastmod>2025-12-11</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://mahadkhanleghari.github.io/quant_trading_notebooks/methodology/data_sources/</loc>
+         <lastmod>2025-12-11</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://mahadkhanleghari.github.io/quant_trading_notebooks/methodology/statistical_methods/</loc>
+         <lastmod>2025-12-11</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://mahadkhanleghari.github.io/quant_trading_notebooks/results/performance_metrics/</loc>
+         <lastmod>2025-12-11</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://mahadkhanleghari.github.io/quant_trading_notebooks/results/risk_analysis/</loc>
+         <lastmod>2025-12-11</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+</urlset>
