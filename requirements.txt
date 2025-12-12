@@ -20,6 +20,12 @@ python-dotenv
 jupyter
 notebook
 ipykernel
+nbconvert
+
+# Documentation
+mkdocs
+mkdocs-material
+mkdocs-jupyter
 
 # Utilities
 requests

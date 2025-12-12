@@ -210,7 +210,6 @@ __marimo__/
 # Data files and generated results
 data/
 results/
-*.html
 
-results/
-data/
+# MkDocs
+site/

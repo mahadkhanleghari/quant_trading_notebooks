@@ -1,0 +1,52 @@
+/* Custom styles for quantitative research documentation */
+
+/* Code blocks and syntax highlighting */
+.highlight {
+  border-radius: 4px;
+}
+
+/* Math expressions */
+.arithmatex {
+  margin: 0.5em 0;
+}
+
+/* Tables */
+table {
+  border-collapse: collapse;
+  margin: 1em 0;
+}
+
+table th,
+table td {
+  border: 1px solid var(--md-default-fg-color--lighter);
+  padding: 0.6em 1em;
+}
+
+table th {
+  background-color: var(--md-default-fg-color--lightest);
+  font-weight: 600;
+}
+
+/* Research-specific styling */
+.research-metric {
+  background-color: var(--md-code-bg-color);
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-family: var(--md-code-font);
+}
+
+.performance-highlight {
+  background: linear-gradient(90deg, var(--md-accent-fg-color--transparent), transparent);
+  padding: 0.1em 0.3em;
+  border-left: 3px solid var(--md-accent-fg-color);
+  margin: 0.5em 0;
+}
+
+/* Image styling for charts */
+img[alt*="chart"], img[alt*="plot"], img[alt*="analysis"] {
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin: 1em 0;
+}
+
