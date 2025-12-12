@@ -93,3 +93,4 @@ Comprehensive risk analysis across all trading strategies and research findings.
 - **Worst Case (1%)**: -25% annual return
 - **Expected Return**: 15.7% annual return
 - **Probability of Loss**: 23% in any given year
+

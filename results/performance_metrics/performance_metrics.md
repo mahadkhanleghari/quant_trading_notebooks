@@ -10,10 +10,10 @@ This section presents key performance metrics and results across all quantitativ
 
 | Horizon | Correlation | T-Statistic | P-Value | Significance |
 |---------|-------------|-------------|---------|--------------|
-| 1 min   | 0.0234      | 3.21        | 0.001   | ✓ Significant |
-| 5 min   | 0.0345      | 4.82        | <0.001  | ✓ Significant |
-| 15 min  | 0.0212      | 2.94        | 0.004   | ✓ Significant |
-| 30 min  | 0.0156      | 2.13        | 0.036   | ✓ Significant |
+| 1 min   | 0.0234      | 3.21        | 0.001   | Significant |
+| 5 min   | 0.0345      | 4.82        | <0.001  | Significant |
+| 15 min  | 0.0212      | 2.94        | 0.004   | Significant |
+| 30 min  | 0.0156      | 2.13        | 0.036   | Significant |
 | 60 min  | 0.0087      | 1.12        | 0.271   | Not Significant |
 
 ### VWAP Mean Reversion
@@ -60,3 +60,4 @@ All results include:
 - **Multiple Testing Correction**: Bonferroni adjustment applied
 - **Bootstrap Confidence Intervals**: 95% confidence bounds
 - **Out-of-sample Validation**: Walk-forward analysis performed
+

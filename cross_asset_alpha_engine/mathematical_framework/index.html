@@ -1,0 +1,1690 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Professional quantitative research across market microstructure, cross-asset alpha generation, and systematic trading">
+      
+      
+        <meta name="author" content="The Data Guy">
+      
+      
+        <link rel="canonical" href="https://mahadkhanleghari.github.io/quant_trading_notebooks/cross_asset_alpha_engine/mathematical_framework/">
+      
+      
+        <link rel="prev" href="../system_architecture/">
+      
+      
+        <link rel="next" href="../feature_engineering/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.2.7">
+    
+    
+      
+        <title>Mathematical Framework - The Data Guy - Quant Research</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.046329b4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.85d0ee34.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="deep-orange">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mathematical-framework" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="The Data Guy - Quant Research" class="md-header__button md-logo" aria-label="The Data Guy - Quant Research" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            The Data Guy - Quant Research
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Mathematical Framework
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="deep-orange"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue-grey" data-md-color-accent="deep-orange"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/mahadkhanleghari/quant_trading_notebooks" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mahadkhanleghari/quant_trading_notebooks
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../projects_overview/" class="md-tabs__link">
+          
+  
+    
+  
+  Projects
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../methodology/data_sources/" class="md-tabs__link">
+          
+  
+    
+  
+  Research Framework
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="The Data Guy - Quant Research" class="md-nav__button md-logo" aria-label="The Data Guy - Quant Research" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    The Data Guy - Quant Research
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/mahadkhanleghari/quant_trading_notebooks" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mahadkhanleghari/quant_trading_notebooks
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Projects
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Projects
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Crypto Microstructure Analysis
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Crypto Microstructure Analysis
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../crypto_microstructure_analysis_files/crypto_microstructure_analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Main Analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Cross-Asset Alpha Engine
+  </span>
+  
+
+            </a>
+            
+              <label class="md-nav__link " for="__nav_2_3">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Cross-Asset Alpha Engine
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../methodology/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Methodology
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../system_architecture/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    System Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Mathematical Framework
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Mathematical Framework
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#core-mathematical-foundations" class="md-nav__link">
+    Core Mathematical Foundations
+  </a>
+  
+    <nav class="md-nav" aria-label="Core Mathematical Foundations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-cross-asset-alpha-generation-model" class="md-nav__link">
+    1. Cross-Asset Alpha Generation Model
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Cross-Asset Alpha Generation Model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alpha-decomposition" class="md-nav__link">
+    Alpha Decomposition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#regime-conditional-alpha" class="md-nav__link">
+    Regime-Conditional Alpha
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-hidden-markov-model-framework" class="md-nav__link">
+    2. Hidden Markov Model Framework
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Hidden Markov Model Framework">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#state-space-representation" class="md-nav__link">
+    State Space Representation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#observation-model" class="md-nav__link">
+    Observation Model
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#forward-algorithm" class="md-nav__link">
+    Forward Algorithm
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backward-algorithm" class="md-nav__link">
+    Backward Algorithm
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#viterbi-algorithm" class="md-nav__link">
+    Viterbi Algorithm
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-feature-engineering-mathematics" class="md-nav__link">
+    3. Feature Engineering Mathematics
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Feature Engineering Mathematics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#technical-features" class="md-nav__link">
+    Technical Features
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#microstructure-features" class="md-nav__link">
+    Microstructure Features
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cross-asset-features" class="md-nav__link">
+    Cross-Asset Features
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-machine-learning-model-mathematics" class="md-nav__link">
+    4. Machine Learning Model Mathematics
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Machine Learning Model Mathematics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#random-forest-prediction" class="md-nav__link">
+    Random Forest Prediction
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#feature-importance-gini" class="md-nav__link">
+    Feature Importance (Gini)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shap-values" class="md-nav__link">
+    SHAP Values
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-portfolio-construction-mathematics" class="md-nav__link">
+    5. Portfolio Construction Mathematics
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Portfolio Construction Mathematics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mean-variance-optimization" class="md-nav__link">
+    Mean-Variance Optimization
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kelly-criterion" class="md-nav__link">
+    Kelly Criterion
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#risk-parity-weights" class="md-nav__link">
+    Risk Parity Weights
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-risk-management-mathematics" class="md-nav__link">
+    6. Risk Management Mathematics
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Risk Management Mathematics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#value-at-risk-var" class="md-nav__link">
+    Value at Risk (VaR)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-shortfall-conditional-var" class="md-nav__link">
+    Expected Shortfall (Conditional VaR)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maximum-drawdown" class="md-nav__link">
+    Maximum Drawdown
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-performance-attribution-mathematics" class="md-nav__link">
+    7. Performance Attribution Mathematics
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Performance Attribution Mathematics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#information-ratio" class="md-nav__link">
+    Information Ratio
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sharpe-ratio" class="md-nav__link">
+    Sharpe Ratio
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#calmar-ratio" class="md-nav__link">
+    Calmar Ratio
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-transaction-cost-mathematics" class="md-nav__link">
+    8. Transaction Cost Mathematics
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Transaction Cost Mathematics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#market-impact-model-square-root-law" class="md-nav__link">
+    Market Impact Model (Square Root Law)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-shortfall" class="md-nav__link">
+    Implementation Shortfall
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-statistical-tests" class="md-nav__link">
+    9. Statistical Tests
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Statistical Tests">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#augmented-dickey-fuller-test" class="md-nav__link">
+    Augmented Dickey-Fuller Test
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ljung-box-test" class="md-nav__link">
+    Ljung-Box Test
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../feature_engineering/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Feature Engineering
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../model_architecture/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Model Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../implementation_guide/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Implementation Guide
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../results_analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Results Analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../INTEGRATION_GUIDE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Integration Guide
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mkdocs_structure/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MkDocs Structure
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3_11" >
+        
+          <label class="md-nav__link" for="__nav_2_3_11" id="__nav_2_3_11_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Notebooks
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_11">
+            <span class="md-nav__icon md-icon"></span>
+            Notebooks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/complete_system_analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Complete System Analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/data_exploration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Exploration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/feature_exploration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Feature Exploration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/regime_detection/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Regime Detection
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/backtesting_demo/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Backtesting Demo
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/execution_simulation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Execution Simulation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../terminology/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Terminology
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Research Framework
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Research Framework
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../methodology/data_sources/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Sources
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../methodology/statistical_methods/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Statistical Methods
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../results/performance_metrics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Performance Metrics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../results/risk_analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Risk Analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="mathematical-framework">Mathematical Framework</h1>
+<h2 id="core-mathematical-foundations">Core Mathematical Foundations</h2>
+<h3 id="1-cross-asset-alpha-generation-model">1. Cross-Asset Alpha Generation Model</h3>
+<h4 id="alpha-decomposition">Alpha Decomposition</h4>
+<p>The total alpha generated by the system can be decomposed as:</p>
+<div class="arithmatex">\[\alpha_t = \alpha_t^{tech} + \alpha_t^{micro} + \alpha_t^{cross} + \epsilon_t\]</div>
+<p>Where:
+- <span class="arithmatex">\(\alpha_t^{tech}\)</span>: Technical analysis alpha
+- <span class="arithmatex">\(\alpha_t^{micro}\)</span>: Microstructure alpha<br />
+- <span class="arithmatex">\(\alpha_t^{cross}\)</span>: Cross-asset alpha
+- <span class="arithmatex">\(\epsilon_t\)</span>: Idiosyncratic noise</p>
+<h4 id="regime-conditional-alpha">Regime-Conditional Alpha</h4>
+<p>Alpha generation is conditioned on market regime:</p>
+<div class="arithmatex">\[\alpha_t = \sum_{k=1}^{K} P(S_t = k | \mathcal{F}_{t-1}) \cdot \alpha_t^{(k)}\]</div>
+<p>Where:
+- <span class="arithmatex">\(S_t\)</span>: Market regime at time <span class="arithmatex">\(t\)</span>
+- <span class="arithmatex">\(K\)</span>: Number of regimes
+- <span class="arithmatex">\(P(S_t = k | \mathcal{F}_{t-1})\)</span>: Regime probability given information set
+- <span class="arithmatex">\(\alpha_t^{(k)}\)</span>: Regime-specific alpha</p>
+<h3 id="2-hidden-markov-model-framework">2. Hidden Markov Model Framework</h3>
+<h4 id="state-space-representation">State Space Representation</h4>
+<p>The HMM assumes markets exist in <span class="arithmatex">\(K\)</span> unobservable states with dynamics:</p>
+<div class="arithmatex">\[P(S_t = j | S_{t-1} = i) = a_{ij}\]</div>
+<p><strong>Transition Matrix</strong>:
+<span class="arithmatex">\(<span class="arithmatex">\(A = \begin{pmatrix}
+a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1K} \\
+a_{21} &amp; a_{22} &amp; \cdots &amp; a_{2K} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+a_{K1} &amp; a_{K2} &amp; \cdots &amp; a_{KK}
+\end{pmatrix}\)</span>\)</span></p>
+<p>Where <span class="arithmatex">\(\sum_{j=1}^{K} a_{ij} = 1\)</span> for all <span class="arithmatex">\(i\)</span>.</p>
+<h4 id="observation-model">Observation Model</h4>
+<p>Observable variables are generated by regime-dependent distributions:</p>
+<div class="arithmatex">\[O_t | S_t = k \sim \mathcal{N}(\mu_k, \Sigma_k)\]</div>
+<p>Where:
+- <span class="arithmatex">\(O_t\)</span>: Observable feature vector at time <span class="arithmatex">\(t\)</span>
+- <span class="arithmatex">\(\mu_k\)</span>: Mean vector for regime <span class="arithmatex">\(k\)</span>
+- <span class="arithmatex">\(\Sigma_k\)</span>: Covariance matrix for regime <span class="arithmatex">\(k\)</span></p>
+<h4 id="forward-algorithm">Forward Algorithm</h4>
+<p>Compute the probability of observing sequence up to time <span class="arithmatex">\(t\)</span> and being in state <span class="arithmatex">\(j\)</span>:</p>
+<div class="arithmatex">\[\alpha_t(j) = P(O_1, O_2, \ldots, O_t, S_t = j | \lambda)\]</div>
+<p><strong>Recursion</strong>:
+<span class="arithmatex">\(<span class="arithmatex">\(\alpha_t(j) = \left[\sum_{i=1}^{K} \alpha_{t-1}(i) a_{ij}\right] b_j(O_t)\)</span>\)</span></p>
+<p>Where <span class="arithmatex">\(b_j(O_t)\)</span> is the emission probability of observation <span class="arithmatex">\(O_t\)</span> in state <span class="arithmatex">\(j\)</span>.</p>
+<h4 id="backward-algorithm">Backward Algorithm</h4>
+<p>Compute the probability of future observations given current state:</p>
+<div class="arithmatex">\[\beta_t(i) = P(O_{t+1}, O_{t+2}, \ldots, O_T | S_t = i, \lambda)\]</div>
+<p><strong>Recursion</strong>:
+<span class="arithmatex">\(<span class="arithmatex">\(\beta_t(i) = \sum_{j=1}^{K} a_{ij} b_j(O_{t+1}) \beta_{t+1}(j)\)</span>\)</span></p>
+<h4 id="viterbi-algorithm">Viterbi Algorithm</h4>
+<p>Find the most likely state sequence:</p>
+<div class="arithmatex">\[\delta_t(j) = \max_{s_1, s_2, \ldots, s_{t-1}} P(s_1, s_2, \ldots, s_{t-1}, s_t = j, O_1, O_2, \ldots, O_t | \lambda)\]</div>
+<p><strong>Recursion</strong>:
+<span class="arithmatex">\(<span class="arithmatex">\(\delta_t(j) = \max_{1 \leq i \leq K} [\delta_{t-1}(i) a_{ij}] b_j(O_t)\)</span>\)</span></p>
+<h3 id="3-feature-engineering-mathematics">3. Feature Engineering Mathematics</h3>
+<h4 id="technical-features">Technical Features</h4>
+<p><strong>Multi-Horizon Returns</strong>:
+<span class="arithmatex">\(<span class="arithmatex">\(r_{t,h} = \frac{P_t - P_{t-h}}{P_{t-h}}\)</span>\)</span></p>
+<p><strong>Realized Volatility</strong>:
+<span class="arithmatex">\(<span class="arithmatex">\(\sigma_{t,h} = \sqrt{\frac{252}{h} \sum_{i=1}^{h} r_{t-i+1}^2}\)</span>\)</span></p>
+<p><strong>Momentum Score</strong>:
+<span class="arithmatex">\(<span class="arithmatex">\(M_{t,h} = \frac{1}{h} \sum_{i=1}^{h} \text{sign}(r_{t-i+1}) \cdot |r_{t-i+1}|^{\gamma}\)</span>\)</span></p>
+<p>Where <span class="arithmatex">\(\gamma\)</span> controls the weighting of large moves.</p>
+<p><strong>RSI Calculation</strong>:
+<span class="arithmatex">\(<span class="arithmatex">\(RSI_t = 100 - \frac{100}{1 + RS_t}\)</span>\)</span></p>
+<p>Where:
+<span class="arithmatex">\(<span class="arithmatex">\(RS_t = \frac{\text{EMA}(\text{Gains}_t)}{\text{EMA}(\text{Losses}_t)}\)</span>\)</span></p>
+<h4 id="microstructure-features">Microstructure Features</h4>
+<p><strong>VWAP Deviation</strong>:
+<span class="arithmatex">\(<span class="arithmatex">\(D_{t}^{VWAP} = \frac{P_t - VWAP_t}{VWAP_t}\)</span>\)</span></p>
+<p>Where:
+<span class="arithmatex">\(<span class="arithmatex">\(VWAP_t = \frac{\sum_{i=1}^{n} P_i \cdot V_i}{\sum_{i=1}^{n} V_i}\)</span>\)</span></p>
+<p><strong>Volume Z-Score</strong>:
+<span class="arithmatex">\(<span class="arithmatex">\(Z_t^{Vol} = \frac{V_t - \mu_{V,t}}{\sigma_{V,t}}\)</span>\)</span></p>
+<p>Where <span class="arithmatex">\(\mu_{V,t}\)</span> and <span class="arithmatex">\(\sigma_{V,t}\)</span> are rolling mean and standard deviation of volume.</p>
+<h4 id="cross-asset-features">Cross-Asset Features</h4>
+<p><strong>Rolling Correlation</strong>:
+<span class="arithmatex">\(<span class="arithmatex">\(\rho_{t,h}(X,Y) = \frac{\sum_{i=1}^{h}(X_{t-i+1} - \bar{X})(Y_{t-i+1} - \bar{Y})}{\sqrt{\sum_{i=1}^{h}(X_{t-i+1} - \bar{X})^2 \sum_{i=1}^{h}(Y_{t-i+1} - \bar{Y})^2}}\)</span>\)</span></p>
+<p><strong>Cross-Asset Volatility Ratio</strong>:
+<span class="arithmatex">\(<span class="arithmatex">\(VR_{t,h} = \frac{\sigma_{equity,t,h}}{\sigma_{bond,t,h}}\)</span>\)</span></p>
+<h3 id="4-machine-learning-model-mathematics">4. Machine Learning Model Mathematics</h3>
+<h4 id="random-forest-prediction">Random Forest Prediction</h4>
+<p>For <span class="arithmatex">\(B\)</span> trees, the prediction is:</p>
+<div class="arithmatex">\[\hat{y} = \frac{1}{B} \sum_{b=1}^{B} T_b(x)\]</div>
+<p>Where <span class="arithmatex">\(T_b(x)\)</span> is the prediction from tree <span class="arithmatex">\(b\)</span>.</p>
+<h4 id="feature-importance-gini">Feature Importance (Gini)</h4>
+<p>For feature <span class="arithmatex">\(j\)</span> in tree <span class="arithmatex">\(T\)</span>:</p>
+<div class="arithmatex">\[I_j(T) = \sum_{t \in T} p(t) \Delta_t\]</div>
+<p>Where:
+- <span class="arithmatex">\(p(t)\)</span>: Proportion of samples reaching node <span class="arithmatex">\(t\)</span>
+- <span class="arithmatex">\(\Delta_t\)</span>: Impurity decrease at node <span class="arithmatex">\(t\)</span></p>
+<p><strong>Gini Impurity</strong>:
+<span class="arithmatex">\(<span class="arithmatex">\(G(t) = 1 - \sum_{k=1}^{K} p_k^2(t)\)</span>\)</span></p>
+<h4 id="shap-values">SHAP Values</h4>
+<p>For feature <span class="arithmatex">\(j\)</span> and prediction instance <span class="arithmatex">\(x\)</span>:</p>
+<div class="arithmatex">\[\phi_j(x) = \sum_{S \subseteq F \setminus \{j\}} \frac{|S|!(|F|-|S|-1)!}{|F|!} [f(S \cup \{j\}) - f(S)]\]</div>
+<p>Where:
+- <span class="arithmatex">\(F\)</span>: Set of all features
+- <span class="arithmatex">\(S\)</span>: Subset of features
+- <span class="arithmatex">\(f(S)\)</span>: Model prediction using feature subset <span class="arithmatex">\(S\)</span></p>
+<h3 id="5-portfolio-construction-mathematics">5. Portfolio Construction Mathematics</h3>
+<h4 id="mean-variance-optimization">Mean-Variance Optimization</h4>
+<p>Minimize portfolio variance subject to expected return constraint:</p>
+<div class="arithmatex">\[\min_w \frac{1}{2} w^T \Sigma w\]</div>
+<p>Subject to:
+- <span class="arithmatex">\(w^T \mu = \mu_p\)</span> (target return)
+- <span class="arithmatex">\(w^T \mathbf{1} = 1\)</span> (fully invested)
+- <span class="arithmatex">\(|w_i| \leq w_{max}\)</span> (position limits)</p>
+<h4 id="kelly-criterion">Kelly Criterion</h4>
+<p>Optimal fraction to invest:</p>
+<div class="arithmatex">\[f^* = \frac{bp - q}{b}\]</div>
+<p>Where:
+- <span class="arithmatex">\(b\)</span>: Odds received on the wager
+- <span class="arithmatex">\(p\)</span>: Probability of winning
+- <span class="arithmatex">\(q = 1 - p\)</span>: Probability of losing</p>
+<p><strong>Generalized Kelly for Multiple Assets</strong>:
+<span class="arithmatex">\(<span class="arithmatex">\(w^* = \Sigma^{-1} \mu\)</span>\)</span></p>
+<p>Where <span class="arithmatex">\(\mu\)</span> is expected excess return vector and <span class="arithmatex">\(\Sigma\)</span> is covariance matrix.</p>
+<h4 id="risk-parity-weights">Risk Parity Weights</h4>
+<p>Equal risk contribution weights:</p>
+<div class="arithmatex">\[w_i = \frac{1/\sigma_i}{\sum_{j=1}^{N} 1/\sigma_j}\]</div>
+<p><strong>Risk Contribution</strong>:
+<span class="arithmatex">\(<span class="arithmatex">\(RC_i = w_i \frac{\partial \sigma_p}{\partial w_i} = w_i \frac{(\Sigma w)_i}{\sigma_p}\)</span>\)</span></p>
+<h3 id="6-risk-management-mathematics">6. Risk Management Mathematics</h3>
+<h4 id="value-at-risk-var">Value at Risk (VaR)</h4>
+<p>For confidence level <span class="arithmatex">\(\alpha\)</span>:</p>
+<div class="arithmatex">\[VaR_\alpha = -F^{-1}(\alpha)\]</div>
+<p>Where <span class="arithmatex">\(F\)</span> is the cumulative distribution function of portfolio returns.</p>
+<p><strong>Parametric VaR</strong> (assuming normality):
+<span class="arithmatex">\(<span class="arithmatex">\(VaR_\alpha = -(\mu + z_\alpha \sigma)\)</span>\)</span></p>
+<h4 id="expected-shortfall-conditional-var">Expected Shortfall (Conditional VaR)</h4>
+<div class="arithmatex">\[ES_\alpha = -E[R | R \leq -VaR_\alpha]\]</div>
+<p>For normal distribution:
+<span class="arithmatex">\(<span class="arithmatex">\(ES_\alpha = -\mu + \sigma \frac{\phi(z_\alpha)}{1-\alpha}\)</span>\)</span></p>
+<p>Where <span class="arithmatex">\(\phi\)</span> is the standard normal PDF.</p>
+<h4 id="maximum-drawdown">Maximum Drawdown</h4>
+<div class="arithmatex">\[MDD = \max_{t \in [0,T]} \left[ \max_{s \in [0,t]} V_s - V_t \right]\]</div>
+<p>Where <span class="arithmatex">\(V_t\)</span> is portfolio value at time <span class="arithmatex">\(t\)</span>.</p>
+<h3 id="7-performance-attribution-mathematics">7. Performance Attribution Mathematics</h3>
+<h4 id="information-ratio">Information Ratio</h4>
+<div class="arithmatex">\[IR = \frac{E[R_p - R_b]}{\sigma(R_p - R_b)}\]</div>
+<p>Where:
+- <span class="arithmatex">\(R_p\)</span>: Portfolio return
+- <span class="arithmatex">\(R_b\)</span>: Benchmark return</p>
+<h4 id="sharpe-ratio">Sharpe Ratio</h4>
+<div class="arithmatex">\[SR = \frac{E[R_p - R_f]}{\sigma(R_p)}\]</div>
+<p>Where <span class="arithmatex">\(R_f\)</span> is the risk-free rate.</p>
+<h4 id="calmar-ratio">Calmar Ratio</h4>
+<div class="arithmatex">\[CR = \frac{\text{Annualized Return}}{\text{Maximum Drawdown}}\]</div>
+<h3 id="8-transaction-cost-mathematics">8. Transaction Cost Mathematics</h3>
+<h4 id="market-impact-model-square-root-law">Market Impact Model (Square Root Law)</h4>
+<div class="arithmatex">\[I = \sigma \sqrt{\frac{Q}{V}} \cdot g(\tau)\]</div>
+<p>Where:
+- <span class="arithmatex">\(I\)</span>: Market impact
+- <span class="arithmatex">\(\sigma\)</span>: Volatility
+- <span class="arithmatex">\(Q\)</span>: Order size
+- <span class="arithmatex">\(V\)</span>: Average daily volume
+- <span class="arithmatex">\(g(\tau)\)</span>: Time function</p>
+<h4 id="implementation-shortfall">Implementation Shortfall</h4>
+<div class="arithmatex">\[IS = \sum_{i=1}^{N} w_i \left[ (P_i^{exec} - P_i^{decision}) + \frac{1}{2} \sigma_i \sqrt{\frac{Q_i}{V_i}} \right]\]</div>
+<h3 id="9-statistical-tests">9. Statistical Tests</h3>
+<h4 id="augmented-dickey-fuller-test">Augmented Dickey-Fuller Test</h4>
+<p>Test statistic for unit root:</p>
+<div class="arithmatex">\[ADF = \frac{\hat{\gamma}}{\text{SE}(\hat{\gamma})}\]</div>
+<p>From regression:
+<span class="arithmatex">\(<span class="arithmatex">\(\Delta y_t = \alpha + \beta t + \gamma y_{t-1} + \sum_{i=1}^{p} \delta_i \Delta y_{t-i} + \epsilon_t\)</span>\)</span></p>
+<h4 id="ljung-box-test">Ljung-Box Test</h4>
+<p>Test for autocorrelation:</p>
+<div class="arithmatex">\[Q = n(n+2) \sum_{k=1}^{h} \frac{\hat{\rho}_k^2}{n-k}\]</div>
+<p>Where <span class="arithmatex">\(\hat{\rho}_k\)</span> is the sample autocorrelation at lag <span class="arithmatex">\(k\)</span>.</p>
+<p>This mathematical framework provides the rigorous foundation for all calculations and algorithms used in the Cross-Asset Alpha Engine.</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2025 The Data Guy - Quantitative Research
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "navigation.indexes", "navigation.instant", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "content.code.copy", "content.code.annotate", "content.tabs.link", "toc.follow", "toc.integrate"], "search": "../../assets/javascripts/workers/search.dfff1995.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.dff1b7c8.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

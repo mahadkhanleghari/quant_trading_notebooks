@@ -39,3 +39,4 @@ For research purposes, realistic market data is generated using:
 - **Regime Switching**: Multiple volatility and liquidity states
 
 All simulated data maintains statistical properties consistent with real market behavior.
+
