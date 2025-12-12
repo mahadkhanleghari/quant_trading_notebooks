@@ -1,5 +1,5 @@
-site_name: Quantitative Trading Research Library
-site_description: Professional quantitative research and market microstructure analysis
+site_name: The Data Guy - Quant Research
+site_description: Professional quantitative research across market microstructure, cross-asset alpha generation, and systematic trading
 site_author: The Data Guy
 site_url: https://mahadkhanleghari.github.io/quant_trading_notebooks
 
@@ -30,16 +30,24 @@ theme:
     - navigation.sections
     - navigation.expand
     - navigation.top
+    - navigation.indexes
+    - navigation.instant
+    - navigation.tracking
     - search.highlight
     - search.share
+    - search.suggest
     - content.code.copy
     - content.code.annotate
+    - content.tabs.link
+    - toc.follow
+    - toc.integrate
   icon:
     repo: fontawesome/brands/github
 
 # Plugins
 plugins:
-  - search
+  - search:
+      separator: '[\s\-,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
   - mkdocs-jupyter:
       execute: false
       include_source: true
@@ -69,6 +77,10 @@ markdown_extensions:
   - md_in_html
   - tables
   - footnotes
+  - def_list
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.smartsymbols
 
 # Extra JavaScript for MathJax
 extra_javascript:
@@ -83,12 +95,32 @@ extra_css:
 # Navigation
 nav:
   - Home: index.md
-  - Research:
-      - Crypto Microstructure Analysis: crypto_microstructure_analysis_files/crypto_microstructure_analysis.md
-  - Methodology:
+  - Projects:
+      - Overview: projects_overview.md
+      - Crypto Microstructure Analysis:
+          - Main Analysis: crypto_microstructure_analysis_files/crypto_microstructure_analysis.md
+      - Cross-Asset Alpha Engine:
+          - Project Overview: cross_asset_alpha_engine/index.md
+          - Methodology: cross_asset_alpha_engine/methodology.md
+          - System Architecture: cross_asset_alpha_engine/system_architecture.md
+          - Mathematical Framework: cross_asset_alpha_engine/mathematical_framework.md
+          - Feature Engineering: cross_asset_alpha_engine/feature_engineering.md
+          - Model Architecture: cross_asset_alpha_engine/model_architecture.md
+          - Implementation Guide: cross_asset_alpha_engine/implementation_guide.md
+          - Results Analysis: cross_asset_alpha_engine/results_analysis.md
+          - Integration Guide: cross_asset_alpha_engine/INTEGRATION_GUIDE.md
+          - MkDocs Structure: cross_asset_alpha_engine/mkdocs_structure.md
+          - Notebooks:
+              - Complete System Analysis: cross_asset_alpha_engine/notebooks/complete_system_analysis.md
+              - Data Exploration: cross_asset_alpha_engine/notebooks/data_exploration.md
+              - Feature Exploration: cross_asset_alpha_engine/notebooks/feature_exploration.md
+              - Regime Detection: cross_asset_alpha_engine/notebooks/regime_detection.md
+              - Backtesting Demo: cross_asset_alpha_engine/notebooks/backtesting_demo.md
+              - Execution Simulation: cross_asset_alpha_engine/notebooks/execution_simulation.md
+          - Terminology: cross_asset_alpha_engine/terminology.md
+  - Research Framework:
       - Data Sources: methodology/data_sources.md
       - Statistical Methods: methodology/statistical_methods.md
-  - Results:
       - Performance Metrics: results/performance_metrics.md
       - Risk Analysis: results/risk_analysis.md
 

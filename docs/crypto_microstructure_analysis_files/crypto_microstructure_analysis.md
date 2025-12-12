@@ -526,7 +526,7 @@ print("\n Response function analysis complete")
 
 
     
-![png](crypto_microstructure_analysis_files/crypto_microstructure_analysis_8_0.png)
+![png](crypto_microstructure_analysis_8_0.png)
     
 
 
@@ -726,7 +726,7 @@ print("\n VWAP drift analysis complete")
 
 
     
-![png](crypto_microstructure_analysis_files/crypto_microstructure_analysis_11_0.png)
+![png](crypto_microstructure_analysis_11_0.png)
     
 
 
@@ -935,7 +935,7 @@ print("\n Intraday seasonality analysis complete")
 
 
     
-![png](crypto_microstructure_analysis_files/crypto_microstructure_analysis_14_0.png)
+![png](crypto_microstructure_analysis_14_0.png)
     
 
 
@@ -1302,7 +1302,7 @@ print("\n Regime detection analysis complete")
 
 
     
-![png](crypto_microstructure_analysis_files/crypto_microstructure_analysis_19_0.png)
+![png](crypto_microstructure_analysis_19_0.png)
     
 
 
