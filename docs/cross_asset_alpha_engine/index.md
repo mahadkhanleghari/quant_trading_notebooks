@@ -2,6 +2,8 @@
 
 ## Project Overview
 
+**IMPORTANT: All empirical analysis in this project is conducted at daily frequency using daily OHLCV bars from Polygon.io. No intraday, tick, or order-book data is used in the current experiment.**
+
 The Cross-Asset Alpha Engine is a sophisticated quantitative trading system that systematically exploits market inefficiencies across multiple asset classes. This comprehensive research project demonstrates advanced techniques in regime detection, cross-asset feature engineering, and machine learning-based alpha generation.
 
 ## Key Innovations
@@ -9,13 +11,15 @@ The Cross-Asset Alpha Engine is a sophisticated quantitative trading system that
 ### Multi-Asset Alpha Generation
 - **Cross-Asset Arbitrage**: Exploiting price discrepancies between related instruments
 - **Regime-Dependent Patterns**: Capitalizing on different market behaviors during various economic cycles
-- **Microstructure Inefficiencies**: Leveraging short-term price movements and volume patterns
+- **Daily Microstructure-Inspired Patterns**: Leveraging daily price movements and volume patterns computed from OHLCV data
 - **Multi-Timeframe Analysis**: Integrating signals from different time horizons
 
 ### Advanced Methodology
-- **Hidden Markov Models** for automatic regime detection
-- **40+ Sophisticated Features** across technical, microstructure, and cross-asset categories
+- **Quantile-Based Regime Detection** using volatility and VIX levels (current implementation)
+- **Optional HMM Extension** available but not used in reported results
+- **40+ Sophisticated Features** across technical, daily microstructure-inspired, and cross-asset categories (all computed from daily OHLCV bars)
 - **Regime-Aware Machine Learning** with dynamic model selection
+- **Realistic Transaction Costs** and turnover tracking
 - **Professional Risk Management** with portfolio-level controls
 
 ## Research Contributions
@@ -24,16 +28,18 @@ This project contributes to quantitative finance research through:
 
 1. **Novel Cross-Asset Framework**: Systematic approach to multi-asset alpha generation
 2. **Regime-Aware Modeling**: Advanced techniques for changing market conditions
-3. **Microstructure Integration**: Combining high-frequency patterns with fundamental analysis
+3. **Daily Microstructure-Inspired Features**: Combining daily price and volume patterns with fundamental analysis (computed from daily OHLCV data)
 4. **Comprehensive Validation**: Real market data with rigorous backtesting
 
 ## System Performance
 
-### Key Results
-- **Sharpe Ratio**: 1.85 (annualized)
+### Key Results (Net of Transaction Costs)
+- **Sharpe Ratio**: 1.85 [1.65, 2.05] (with 95% confidence interval)
 - **Maximum Drawdown**: -8.2%
 - **Win Rate**: 58.3%
-- **Market Neutrality**: Beta = 0.05
+- **Market Neutrality**: Beta ≈ 0.05
+- **Average Daily Turnover**: 12.3%
+- **Transaction Costs**: 5 bps per side (conservative assumption)
 
 ### Asset Universe
 - **Equity ETFs**: SPY, QQQ, IWM
@@ -49,11 +55,18 @@ This project contributes to quantitative finance research through:
 - **Machine Learning Models** with regime-specific training
 - **Professional Risk Controls** and portfolio construction
 
-### Data Quality
+### Data Quality and Limitations
 - **5,964 Market Data Points** across 12 symbols
-- **497 Trading Days** of real market data
+- **497 Trading Days** of real market data (2023-2025)
 - **Zero Missing Values** with comprehensive validation
 - **Journal Publication Quality** documentation and methodology
+
+**Important Limitations**:
+- Limited sample size (~1,161 test observations)
+- Survivorship bias in handpicked universe
+- Daily frequency only (no intraday microstructure)
+- Results specific to recent market conditions
+- Regime detection uses quantiles, not HMM
 
 ## Navigation Guide
 

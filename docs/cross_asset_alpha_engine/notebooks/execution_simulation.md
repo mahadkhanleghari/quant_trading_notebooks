@@ -1,16 +1,18 @@
 # Execution Simulation Demo
 
-This notebook demonstrates execution cost modeling and simulation capabilities.
+**IMPORTANT: Execution is modeled at daily close-to-close with simple costs, not an intraday microstructure model. All analysis uses daily OHLCV bars only.**
+
+This notebook demonstrates execution cost modeling and simulation capabilities for daily rebalancing.
 
 ## Overview
 
 We'll explore:
-1. Execution cost models (slippage, market impact)
-2. TWAP/VWAP execution simulation
+1. Execution cost models (slippage, market impact) - simplified for daily rebalancing
+2. Daily execution simulation (not intraday TWAP/VWAP)
 3. Transaction cost analysis
 4. Regime-aware execution strategies
 
-**Note**: This is a framework demonstration. Full execution simulation implementation is planned for future releases.
+**Note**: Execution is modeled at daily frequency with simple transaction costs. True intraday microstructure modeling (order books, tick data) is not used in the current experiment.
 
 
 
@@ -24,7 +26,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 # Import Cross-Asset Alpha Engine components
-from cross_asset_alpha_engine.data import load_daily_bars, load_intraday_bars
+from cross_asset_alpha_engine.data import load_daily_bars
 from cross_asset_alpha_engine.utils import setup_logger
 from cross_asset_alpha_engine.config import (
     DEFAULT_PARTICIPATION_RATE, 

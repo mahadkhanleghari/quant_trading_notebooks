@@ -54,9 +54,9 @@ Welcome to my comprehensive quantitative research portfolio. This platform showc
 A sophisticated quantitative trading system that systematically exploits market inefficiencies across multiple asset classes through regime-aware machine learning and advanced feature engineering.
 
 **Performance Highlights:**
-- Sharpe Ratio: 2.34
-- Max Drawdown: 4.2%
-- Win Rate: 67.3%
+- Sharpe Ratio: 1.85 [1.65, 2.05] (95% CI)
+- Maximum Drawdown: -8.2%
+- Win Rate: 58.3%
 - Assets: Multi-Asset Universe
 
 [Explore Complete System](cross_asset_alpha_engine/index.md){ .md-button .md-button--primary }

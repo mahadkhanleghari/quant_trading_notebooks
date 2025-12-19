@@ -24,9 +24,9 @@ from cross_asset_alpha_engine.data import (
     PolygonClient, 
     DataCache, 
     AssetUniverse,
-    load_daily_bars,
-    load_intraday_bars
+    load_daily_bars
 )
+# Note: Only daily OHLCV bars are used. No intraday data is loaded.
 from cross_asset_alpha_engine.utils import setup_logger
 
 # Setup logging

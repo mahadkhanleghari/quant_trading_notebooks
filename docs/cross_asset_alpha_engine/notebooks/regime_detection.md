@@ -1,14 +1,15 @@
 # Regime Detection Demo
 
-This notebook demonstrates the regime detection capabilities using Hidden Markov Models.
+**IMPORTANT**: The current experiment uses volatility/VIX quantile regimes, NOT Hidden Markov Models. HMM-based detection is available as an optional extension but is not used in the reported results.
 
 ## Overview
 
 We'll explore:
-1. Regime feature engineering
-2. HMM model training
-3. Regime prediction and analysis
-4. Regime visualization and interpretation
+1. Current implementation: Volatility/VIX quantile regimes
+2. Regime feature engineering
+3. Optional: HMM model training (not used in reported results)
+4. Regime prediction and analysis
+5. Regime visualization and interpretation
 
 
 

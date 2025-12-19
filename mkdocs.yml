@@ -108,6 +108,7 @@ nav:
           - Model Architecture: cross_asset_alpha_engine/model_architecture.md
           - Implementation Guide: cross_asset_alpha_engine/implementation_guide.md
           - Results Analysis: cross_asset_alpha_engine/results_analysis.md
+          - Statistical Analysis: cross_asset_alpha_engine/statistical_analysis.md
           - Integration Guide: cross_asset_alpha_engine/INTEGRATION_GUIDE.md
           - MkDocs Structure: cross_asset_alpha_engine/mkdocs_structure.md
           - Notebooks:
