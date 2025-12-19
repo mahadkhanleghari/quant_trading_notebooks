@@ -518,6 +518,8 @@
       
         
       
+        
+      
     
     
       
@@ -748,8 +750,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#microstructure-features" class="md-nav__link">
-    Microstructure Features
+  <a href="#daily-microstructure-inspired-features" class="md-nav__link">
+    Daily Microstructure-Inspired Features
   </a>
   
 </li>
@@ -1056,6 +1058,26 @@
   
   
     <li class="md-nav__item">
+      <a href="../statistical_analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Statistical Analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../INTEGRATION_GUIDE/" class="md-nav__link">
         
   
@@ -1120,9 +1142,9 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3_11" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3_12" >
         
-          <label class="md-nav__link" for="__nav_2_3_11" id="__nav_2_3_11_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_3_12" id="__nav_2_3_12_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -1133,8 +1155,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_11_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_3_11">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_12">
             <span class="md-nav__icon md-icon"></span>
             Notebooks
           </label>
@@ -1455,6 +1477,7 @@
 
 
 <h1 id="mathematical-framework">Mathematical Framework</h1>
+<p><strong>IMPORTANT: All empirical analysis in this project is conducted at daily frequency using daily OHLCV bars from Polygon.io. No intraday, tick, or order-book data is used in the current experiment.</strong></p>
 <h2 id="core-mathematical-foundations">Core Mathematical Foundations</h2>
 <h3 id="1-cross-asset-alpha-generation-model">1. Cross-Asset Alpha Generation Model</h3>
 <h4 id="alpha-decomposition">Alpha Decomposition</h4>
@@ -1462,7 +1485,7 @@
 <div class="arithmatex">\[\alpha_t = \alpha_t^{tech} + \alpha_t^{micro} + \alpha_t^{cross} + \epsilon_t\]</div>
 <p>Where:
 - <span class="arithmatex">\(\alpha_t^{tech}\)</span>: Technical analysis alpha
-- <span class="arithmatex">\(\alpha_t^{micro}\)</span>: Microstructure alpha<br />
+- <span class="arithmatex">\(\alpha_t^{micro}\)</span>: Daily microstructure-inspired alpha (computed from daily OHLCV bars, not true intraday data)
 - <span class="arithmatex">\(\alpha_t^{cross}\)</span>: Cross-asset alpha
 - <span class="arithmatex">\(\epsilon_t\)</span>: Idiosyncratic noise</p>
 <h4 id="regime-conditional-alpha">Regime-Conditional Alpha</h4>
@@ -1521,14 +1544,15 @@ a_{K1} &amp; a_{K2} &amp; \cdots &amp; a_{KK}
 <span class="arithmatex">\(<span class="arithmatex">\(RSI_t = 100 - \frac{100}{1 + RS_t}\)</span>\)</span></p>
 <p>Where:
 <span class="arithmatex">\(<span class="arithmatex">\(RS_t = \frac{\text{EMA}(\text{Gains}_t)}{\text{EMA}(\text{Losses}_t)}\)</span>\)</span></p>
-<h4 id="microstructure-features">Microstructure Features</h4>
-<p><strong>VWAP Deviation</strong>:
+<h4 id="daily-microstructure-inspired-features">Daily Microstructure-Inspired Features</h4>
+<p><strong>Note: All features are computed from daily OHLCV bars. No intraday or tick data is used.</strong></p>
+<p><strong>VWAP Deviation</strong> (computed from daily bars):
 <span class="arithmatex">\(<span class="arithmatex">\(D_{t}^{VWAP} = \frac{P_t - VWAP_t}{VWAP_t}\)</span>\)</span></p>
-<p>Where:
+<p>Where <span class="arithmatex">\(VWAP_t\)</span> is computed from daily OHLCV data:
 <span class="arithmatex">\(<span class="arithmatex">\(VWAP_t = \frac{\sum_{i=1}^{n} P_i \cdot V_i}{\sum_{i=1}^{n} V_i}\)</span>\)</span></p>
-<p><strong>Volume Z-Score</strong>:
+<p><strong>Volume Z-Score</strong> (computed from daily volume):
 <span class="arithmatex">\(<span class="arithmatex">\(Z_t^{Vol} = \frac{V_t - \mu_{V,t}}{\sigma_{V,t}}\)</span>\)</span></p>
-<p>Where <span class="arithmatex">\(\mu_{V,t}\)</span> and <span class="arithmatex">\(\sigma_{V,t}\)</span> are rolling mean and standard deviation of volume.</p>
+<p>Where <span class="arithmatex">\(\mu_{V,t}\)</span> and <span class="arithmatex">\(\sigma_{V,t}\)</span> are rolling mean and standard deviation of daily volume.</p>
 <h4 id="cross-asset-features">Cross-Asset Features</h4>
 <p><strong>Rolling Correlation</strong>:
 <span class="arithmatex">\(<span class="arithmatex">\(\rho_{t,h}(X,Y) = \frac{\sum_{i=1}^{h}(X_{t-i+1} - \bar{X})(Y_{t-i+1} - \bar{Y})}{\sqrt{\sum_{i=1}^{h}(X_{t-i+1} - \bar{X})^2 \sum_{i=1}^{h}(Y_{t-i+1} - \bar{Y})^2}}\)</span>\)</span></p>

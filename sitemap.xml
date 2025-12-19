@@ -2,122 +2,127 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://mahadkhanleghari.github.io/quant_trading_notebooks/</loc>
-         <lastmod>2025-12-12</lastmod>
+         <lastmod>2025-12-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mahadkhanleghari.github.io/quant_trading_notebooks/projects_overview/</loc>
-         <lastmod>2025-12-12</lastmod>
+         <lastmod>2025-12-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mahadkhanleghari.github.io/quant_trading_notebooks/cross_asset_alpha_engine/</loc>
-         <lastmod>2025-12-12</lastmod>
+         <lastmod>2025-12-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mahadkhanleghari.github.io/quant_trading_notebooks/cross_asset_alpha_engine/INTEGRATION_GUIDE/</loc>
-         <lastmod>2025-12-12</lastmod>
+         <lastmod>2025-12-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mahadkhanleghari.github.io/quant_trading_notebooks/cross_asset_alpha_engine/feature_engineering/</loc>
-         <lastmod>2025-12-12</lastmod>
+         <lastmod>2025-12-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mahadkhanleghari.github.io/quant_trading_notebooks/cross_asset_alpha_engine/implementation_guide/</loc>
-         <lastmod>2025-12-12</lastmod>
+         <lastmod>2025-12-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mahadkhanleghari.github.io/quant_trading_notebooks/cross_asset_alpha_engine/mathematical_framework/</loc>
-         <lastmod>2025-12-12</lastmod>
+         <lastmod>2025-12-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mahadkhanleghari.github.io/quant_trading_notebooks/cross_asset_alpha_engine/methodology/</loc>
-         <lastmod>2025-12-12</lastmod>
+         <lastmod>2025-12-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mahadkhanleghari.github.io/quant_trading_notebooks/cross_asset_alpha_engine/mkdocs_structure/</loc>
-         <lastmod>2025-12-12</lastmod>
+         <lastmod>2025-12-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mahadkhanleghari.github.io/quant_trading_notebooks/cross_asset_alpha_engine/model_architecture/</loc>
-         <lastmod>2025-12-12</lastmod>
+         <lastmod>2025-12-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mahadkhanleghari.github.io/quant_trading_notebooks/cross_asset_alpha_engine/results_analysis/</loc>
-         <lastmod>2025-12-12</lastmod>
+         <lastmod>2025-12-19</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://mahadkhanleghari.github.io/quant_trading_notebooks/cross_asset_alpha_engine/statistical_analysis/</loc>
+         <lastmod>2025-12-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mahadkhanleghari.github.io/quant_trading_notebooks/cross_asset_alpha_engine/system_architecture/</loc>
-         <lastmod>2025-12-12</lastmod>
+         <lastmod>2025-12-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mahadkhanleghari.github.io/quant_trading_notebooks/cross_asset_alpha_engine/terminology/</loc>
-         <lastmod>2025-12-12</lastmod>
+         <lastmod>2025-12-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mahadkhanleghari.github.io/quant_trading_notebooks/cross_asset_alpha_engine/notebooks/backtesting_demo/</loc>
-         <lastmod>2025-12-12</lastmod>
+         <lastmod>2025-12-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mahadkhanleghari.github.io/quant_trading_notebooks/cross_asset_alpha_engine/notebooks/complete_system_analysis/</loc>
-         <lastmod>2025-12-12</lastmod>
+         <lastmod>2025-12-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mahadkhanleghari.github.io/quant_trading_notebooks/cross_asset_alpha_engine/notebooks/data_exploration/</loc>
-         <lastmod>2025-12-12</lastmod>
+         <lastmod>2025-12-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mahadkhanleghari.github.io/quant_trading_notebooks/cross_asset_alpha_engine/notebooks/execution_simulation/</loc>
-         <lastmod>2025-12-12</lastmod>
+         <lastmod>2025-12-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mahadkhanleghari.github.io/quant_trading_notebooks/cross_asset_alpha_engine/notebooks/feature_exploration/</loc>
-         <lastmod>2025-12-12</lastmod>
+         <lastmod>2025-12-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mahadkhanleghari.github.io/quant_trading_notebooks/cross_asset_alpha_engine/notebooks/regime_detection/</loc>
-         <lastmod>2025-12-12</lastmod>
+         <lastmod>2025-12-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mahadkhanleghari.github.io/quant_trading_notebooks/crypto_microstructure_analysis_files/crypto_microstructure_analysis/</loc>
-         <lastmod>2025-12-12</lastmod>
+         <lastmod>2025-12-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mahadkhanleghari.github.io/quant_trading_notebooks/methodology/data_sources/</loc>
-         <lastmod>2025-12-12</lastmod>
+         <lastmod>2025-12-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mahadkhanleghari.github.io/quant_trading_notebooks/methodology/statistical_methods/</loc>
-         <lastmod>2025-12-12</lastmod>
+         <lastmod>2025-12-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mahadkhanleghari.github.io/quant_trading_notebooks/results/performance_metrics/</loc>
-         <lastmod>2025-12-12</lastmod>
+         <lastmod>2025-12-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mahadkhanleghari.github.io/quant_trading_notebooks/results/risk_analysis/</loc>
-         <lastmod>2025-12-12</lastmod>
+         <lastmod>2025-12-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>

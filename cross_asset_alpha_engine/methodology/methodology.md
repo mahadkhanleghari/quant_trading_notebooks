@@ -1,5 +1,7 @@
 # Cross-Asset Alpha Engine Methodology
 
+**IMPORTANT: All empirical analysis in this project is conducted at daily frequency using daily OHLCV bars from Polygon.io. No intraday, tick, or order-book data is used in the current experiment.**
+
 ## Theoretical Foundation
 
 ### Information Flow Theory
@@ -84,7 +86,9 @@ rs = gains.rolling(14).mean() / losses.rolling(14).mean()
 rsi = 100 - (100 / (1 + rs))
 ```
 
-### Microstructure Features
+### Daily Microstructure-Inspired Features
+
+**Note: All features are computed from daily OHLCV bars; no intraday or tick data is used in the current experiment.**
 
 #### Volume-Weighted Average Price (VWAP) Analysis
 ```python
@@ -95,9 +99,9 @@ vwap_deviation = (price - vwap) / vwap
 volume_zscore = (volume - volume.rolling(20).mean()) / volume.rolling(20).std()
 ```
 
-#### Intraday Pattern Recognition
+#### Daily Price Patterns (Computed from OHLCV)
 ```python
-# Gap analysis
+# Gap analysis (computed from daily bars)
 overnight_gap = (open_price - close_price.shift(1)) / close_price.shift(1)
 
 # Daily range analysis
@@ -128,45 +132,66 @@ flight_to_quality = (bond_returns > bond_returns.quantile(0.8)) & (equity_return
 
 ## Regime Detection Methodology
 
-### Hidden Markov Model Implementation
+**IMPORTANT**: The current experiment uses volatility/VIX quantile regimes, NOT Hidden Markov Models. HMM-based detection is available as an optional extension but is not used in the reported results.
+
+### Current Implementation: Volatility/VIX Quantile Regimes
+
+The reported results use a simple but effective quantile-based regime detection method:
+
+#### Methodology
+```python
+from cross_asset_alpha_engine.regimes import assign_regimes
+
+# Current experiment uses this method
+regimes = assign_regimes(data, method="vol_vix_quantiles", n_regimes=3)
+```
+
+#### Regime Construction
+1. **Volatility Regime**: 20-day realized volatility divided into 3 quantiles
+   - Low_Vol: Bottom 33% of volatility observations
+   - Med_Vol: Middle 33% of volatility observations  
+   - High_Vol: Top 33% of volatility observations
+
+2. **VIX Regime**: VIX level divided into 3 quantiles (when available)
+   - Low_VIX: Bottom 33% of VIX levels
+   - Med_VIX: Middle 33% of VIX levels
+   - High_VIX: Top 33% of VIX levels
+
+3. **Combined Regime**: Cartesian product of volatility and VIX regimes
+   - Results in up to 9 possible regime combinations
+   - Example: "Med_Vol_High_VIX" = medium volatility with high VIX
+
+#### Regime Descriptions
+- **Low_Vol_Low_VIX**: Calm, stable market conditions
+- **Med_Vol_Med_VIX**: Typical market environment  
+- **High_Vol_High_VIX**: Crisis or extreme stress conditions
+- **Low_Vol_High_VIX**: Unusual combination, potential turning point
+- **High_Vol_Low_VIX**: Unusual market dynamics
+
+### Planned Extension: Hidden Markov Model Implementation
+
+**Note**: HMM-based regimes are available in the framework but require proper train/test implementation to avoid look-ahead bias.
 
 #### Mathematical Framework
 The HMM assumes markets exist in K unobservable states with transition probabilities:
 
 $$P(S_t = j | S_{t-1} = i) = a_{ij}$$
 
-**State Estimation Algorithms**:
-- **Forward Algorithm**: $\alpha_t(i) = P(O_1, ..., O_t, S_t = i | \lambda)$
-- **Backward Algorithm**: $\beta_t(i) = P(O_{t+1}, ..., O_T | S_t = i, \lambda)$
-- **Viterbi Algorithm**: Most likely state sequence
-- **Baum-Welch**: Maximum likelihood parameter estimation
+#### TODO for HMM Implementation
+To properly implement HMM-based regimes:
+1. Fit HMM only on training data
+2. Predict regimes on both train and test sets using fitted model
+3. Ensure no look-ahead bias in regime assignment
+4. Compare performance vs quantile-based method
 
-#### Observable Variables
 ```python
-# Regime detection features
-regime_features = [
-    'volatility_20d',
-    'vix_level',
-    'equity_bond_correlation',
-    'volume_zscore',
-    'cross_asset_volatility_ratio'
-]
-```
+# Future HMM implementation (not currently used)
+from cross_asset_alpha_engine.regimes import RegimeHMM
 
-#### Regime Interpretation
-- **Regime 1 (Low Volatility)**: VIX < 20, positive equity momentum, stable correlations
-- **Regime 2 (High Volatility)**: VIX > 30, negative equity momentum, correlation breakdown
-- **Regime 3 (Transition)**: Mixed signals, changing correlations, moderate volatility
-
-### Statistical Regime Detection
-
-#### Threshold Models
-```python
-# Volatility-based regime switching
-vol_regime = pd.cut(volatility_20d, bins=3, labels=['Low', 'Medium', 'High'])
-
-# VIX-based market stress identification
-stress_regime = (vix_level > vix_level.rolling(60).quantile(0.8))
+# This would require proper train/test split
+hmm_model = RegimeHMM(n_components=3)
+hmm_model.fit(train_features)  # Only training data
+regimes = hmm_model.predict_regimes(all_features)  # Predict on all data
 ```
 
 ## Machine Learning Architecture

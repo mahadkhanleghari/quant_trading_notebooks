@@ -1,0 +1,4 @@
+Test,Metric,Value,t-statistic,p-value,Significant (5%),Significant (1%)
+Sharpe Ratio,Sharpe Ratio,0.5293,5.9886,0.000000,Yes,Yes
+Alpha Persistence,Alpha (annualized),4.1940%,0.7132,0.477031,No,No
+Information Ratio,Information Ratio,-2.6149,-1.8342,0.068965,No,No

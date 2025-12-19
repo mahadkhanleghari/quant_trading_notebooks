@@ -16,7 +16,7 @@ A sophisticated quantitative trading system that systematically exploits market 
 - **Hidden Markov Models** for automatic regime detection
 - **Multi-Asset Universe** including equities, bonds, commodities, and currencies
 - **Professional Risk Management** with portfolio-level controls
-- **Sharpe Ratio**: 2.34 | **Max Drawdown**: 4.2% | **Win Rate**: 67.3%
+- **Sharpe Ratio**: 1.85 [1.65, 2.05] | **Max Drawdown**: -8.2% | **Win Rate**: 58.3%
 
 [Explore Cross-Asset Alpha Engine](cross_asset_alpha_engine/index.md){ .md-button .md-button--primary }
 
@@ -80,7 +80,7 @@ Comprehensive risk analysis including Value at Risk, stress testing, correlation
 
 | Project | Sharpe Ratio | Max Drawdown | Win Rate | Assets Covered |
 |---------|--------------|--------------|----------|----------------|
-| Cross-Asset Alpha Engine | 2.34 | 4.2% | 67.3% | Multi-Asset |
+| Cross-Asset Alpha Engine | 1.85 [1.65, 2.05] | -8.2% | 58.3% | Multi-Asset |
 | Crypto Microstructure | 1.47 | 8.7% | 52.3% | BTC/USDT |
 
 ---

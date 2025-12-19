@@ -518,6 +518,8 @@
       
         
       
+        
+      
     
     
       
@@ -1070,6 +1072,26 @@
   
   
     <li class="md-nav__item">
+      <a href="../statistical_analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Statistical Analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../INTEGRATION_GUIDE/" class="md-nav__link">
         
   
@@ -1134,9 +1156,9 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3_11" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3_12" >
         
-          <label class="md-nav__link" for="__nav_2_3_11" id="__nav_2_3_11_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_3_12" id="__nav_2_3_12_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -1147,8 +1169,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_11_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_3_11">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_12">
             <span class="md-nav__icon md-icon"></span>
             Notebooks
           </label>
@@ -1469,8 +1491,9 @@
 
 
 <h1 id="implementation-guide">Implementation Guide</h1>
+<p><strong>IMPORTANT: All empirical analysis in this project is conducted at daily frequency using daily OHLCV bars from Polygon.io. No intraday, tick, or order-book data is used in the current experiment.</strong></p>
 <h2 id="getting-started">Getting Started</h2>
-<p>This guide provides step-by-step instructions for implementing and deploying the Cross-Asset Alpha Engine in your research or production environment.</p>
+<p>This guide provides step-by-step instructions for implementing and deploying the Cross-Asset Alpha Engine in your research or production environment. All features are computed from daily OHLCV bars, and execution is modeled at daily close-to-close with simple costs.</p>
 <h2 id="prerequisites">Prerequisites</h2>
 <h3 id="system-requirements">System Requirements</h3>
 <ul>

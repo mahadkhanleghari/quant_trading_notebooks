@@ -518,6 +518,8 @@
       
         
       
+        
+      
     
     
       
@@ -719,11 +721,11 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#microstructure-features-volume-and-intraday-patterns" class="md-nav__link">
-    Microstructure Features (Volume and Intraday Patterns)
+  <a href="#daily-microstructure-inspired-features-volume-and-daily-patterns" class="md-nav__link">
+    Daily Microstructure-Inspired Features (Volume and Daily Patterns)
   </a>
   
-    <nav class="md-nav" aria-label="Microstructure Features (Volume and Intraday Patterns)">
+    <nav class="md-nav" aria-label="Daily Microstructure-Inspired Features (Volume and Daily Patterns)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -741,8 +743,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#intraday-patterns" class="md-nav__link">
-    Intraday Patterns
+  <a href="#daily-price-patterns-computed-from-ohlcv" class="md-nav__link">
+    Daily Price Patterns (Computed from OHLCV)
   </a>
   
 </li>
@@ -987,6 +989,26 @@
   
   
     <li class="md-nav__item">
+      <a href="../statistical_analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Statistical Analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../INTEGRATION_GUIDE/" class="md-nav__link">
         
   
@@ -1051,9 +1073,9 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3_11" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3_12" >
         
-          <label class="md-nav__link" for="__nav_2_3_11" id="__nav_2_3_11_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_3_12" id="__nav_2_3_12_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -1064,8 +1086,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_11_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_3_11">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_12">
             <span class="md-nav__icon md-icon"></span>
             Notebooks
           </label>
@@ -1386,8 +1408,9 @@
 
 
 <h1 id="feature-engineering-framework">Feature Engineering Framework</h1>
+<p><strong>IMPORTANT: All features are computed from daily OHLCV bars. No intraday, tick, or order-book data is used in the current experiment.</strong></p>
 <h2 id="overview">Overview</h2>
-<p>The Cross-Asset Alpha Engine generates over 40 sophisticated features designed to capture different aspects of market behavior across technical analysis, microstructure patterns, and cross-asset relationships.</p>
+<p>The Cross-Asset Alpha Engine generates over 40 sophisticated features designed to capture different aspects of market behavior across technical analysis, daily microstructure-inspired patterns, and cross-asset relationships. All features are computed from daily OHLCV (Open, High, Low, Close, Volume) bars from Polygon.io.</p>
 <h2 id="feature-categories">Feature Categories</h2>
 <h3 id="technical-analysis-features-price-based-signals">Technical Analysis Features (Price-Based Signals)</h3>
 <h4 id="momentum-indicators">Momentum Indicators</h4>
@@ -1446,9 +1469,10 @@
 - <strong>RSI Variations</strong>: Multiple RSI calculations with different lookback periods
 - <strong>Z-Score Analysis</strong>: Price deviations from historical means
 - <strong>Reversion Strength</strong>: Magnitude and persistence of mean-reverting moves</p>
-<h3 id="microstructure-features-volume-and-intraday-patterns">Microstructure Features (Volume and Intraday Patterns)</h3>
+<h3 id="daily-microstructure-inspired-features-volume-and-daily-patterns">Daily Microstructure-Inspired Features (Volume and Daily Patterns)</h3>
+<p><strong>All features in this section are computed from daily OHLCV bars. No intraday or tick data is used.</strong></p>
 <h4 id="volume-analysis">Volume Analysis</h4>
-<p>Trading activity and institutional behavior:</p>
+<p>Daily trading activity patterns computed from daily volume data:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Volume z-score</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">vol_mean</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;volume&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">vol_std</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;volume&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
@@ -1483,23 +1507,23 @@
 - <strong>VWAP Momentum</strong>: Rate of change in VWAP relative to price
 - <strong>Institutional Activity</strong>: Large block trading detection through VWAP analysis
 - <strong>Execution Quality</strong>: Price improvement/deterioration vs VWAP</p>
-<h4 id="intraday-patterns">Intraday Patterns</h4>
-<p>Market microstructure and timing effects:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Gap analysis</span>
+<h4 id="daily-price-patterns-computed-from-ohlcv">Daily Price Patterns (Computed from OHLCV)</h4>
+<p>Daily price dynamics computed from daily OHLCV bars:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Gap analysis (computed from daily bars)</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">features</span><span class="p">[</span><span class="s1">&#39;overnight_gap&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;open&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;close&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span> <span class="o">/</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;close&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># Daily range analysis</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># Daily range analysis (from daily high-low)</span>
 </span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="n">features</span><span class="p">[</span><span class="s1">&#39;daily_range&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;high&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;low&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;close&#39;</span><span class="p">]</span>
 </span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="n">features</span><span class="p">[</span><span class="s1">&#39;range_zscore&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">features</span><span class="p">[</span><span class="s1">&#39;daily_range&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">features</span><span class="p">[</span><span class="s1">&#39;daily_range&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">/</span> <span class="n">features</span><span class="p">[</span><span class="s1">&#39;daily_range&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
 </span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="c1"># Intraday returns</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="c1"># Daily open-to-close returns (computed from daily bars)</span>
 </span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="n">features</span><span class="p">[</span><span class="s1">&#39;intraday_return&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;close&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;open&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;open&#39;</span><span class="p">]</span>
 </span></code></pre></div>
-<p><strong>Intraday Features</strong>:
-- <strong>Gap Analysis</strong>: Overnight price gaps and their subsequent behavior
+<p><strong>Daily Price Pattern Features</strong> (computed from daily OHLCV):
+- <strong>Gap Analysis</strong>: Overnight price gaps (daily open vs previous close) and their subsequent behavior
 - <strong>Range Analysis</strong>: Daily high-low ranges relative to historical norms
-- <strong>Intraday Returns</strong>: Open-to-close vs close-to-open return patterns
-- <strong>Time-of-Day Effects</strong>: Systematic patterns in different trading sessions</p>
+- <strong>Daily Open-to-Close Returns</strong>: Computed from daily OHLCV bars (not true intraday data)
+- <strong>Note</strong>: True intraday patterns and time-of-day effects require intraday data, which is not used in the current experiment</p>
 <h3 id="cross-asset-features-inter-market-relationships">Cross-Asset Features (Inter-Market Relationships)</h3>
 <h4 id="correlation-dynamics">Correlation Dynamics</h4>
 <p>Inter-market relationships and regime detection:</p>

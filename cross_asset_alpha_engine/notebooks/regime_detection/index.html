@@ -518,6 +518,8 @@
       
         
       
+        
+      
     
     
       
@@ -704,6 +706,26 @@
   
   
     <li class="md-nav__item">
+      <a href="../../statistical_analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Statistical Analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../INTEGRATION_GUIDE/" class="md-nav__link">
         
   
@@ -768,9 +790,9 @@
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_11" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_12" checked>
         
-          <label class="md-nav__link" for="__nav_2_3_11" id="__nav_2_3_11_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_3_12" id="__nav_2_3_12_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -781,8 +803,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_11_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_2_3_11">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_12_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3_12">
             <span class="md-nav__icon md-icon"></span>
             Notebooks
           </label>
@@ -1157,13 +1179,14 @@
 
 
 <h1 id="regime-detection-demo">Regime Detection Demo</h1>
-<p>This notebook demonstrates the regime detection capabilities using Hidden Markov Models.</p>
+<p><strong>IMPORTANT</strong>: The current experiment uses volatility/VIX quantile regimes, NOT Hidden Markov Models. HMM-based detection is available as an optional extension but is not used in the reported results.</p>
 <h2 id="overview">Overview</h2>
 <p>We'll explore:
-1. Regime feature engineering
-2. HMM model training
-3. Regime prediction and analysis
-4. Regime visualization and interpretation</p>
+1. Current implementation: Volatility/VIX quantile regimes
+2. Regime feature engineering
+3. Optional: HMM model training (not used in reported results)
+4. Regime prediction and analysis
+5. Regime visualization and interpretation</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Import required libraries</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>

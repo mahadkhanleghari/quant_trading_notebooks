@@ -518,6 +518,8 @@
       
         
       
+        
+      
     
     
       
@@ -704,6 +706,26 @@
   
   
     <li class="md-nav__item">
+      <a href="../../statistical_analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Statistical Analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../INTEGRATION_GUIDE/" class="md-nav__link">
         
   
@@ -768,9 +790,9 @@
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_11" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_12" checked>
         
-          <label class="md-nav__link" for="__nav_2_3_11" id="__nav_2_3_11_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_3_12" id="__nav_2_3_12_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -781,8 +803,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_11_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_2_3_11">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_12_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3_12">
             <span class="md-nav__icon md-icon"></span>
             Notebooks
           </label>
@@ -1150,14 +1172,15 @@
 
 
 <h1 id="execution-simulation-demo">Execution Simulation Demo</h1>
-<p>This notebook demonstrates execution cost modeling and simulation capabilities.</p>
+<p><strong>IMPORTANT: Execution is modeled at daily close-to-close with simple costs, not an intraday microstructure model. All analysis uses daily OHLCV bars only.</strong></p>
+<p>This notebook demonstrates execution cost modeling and simulation capabilities for daily rebalancing.</p>
 <h2 id="overview">Overview</h2>
 <p>We'll explore:
-1. Execution cost models (slippage, market impact)
-2. TWAP/VWAP execution simulation
+1. Execution cost models (slippage, market impact) - simplified for daily rebalancing
+2. Daily execution simulation (not intraday TWAP/VWAP)
 3. Transaction cost analysis
 4. Regime-aware execution strategies</p>
-<p><strong>Note</strong>: This is a framework demonstration. Full execution simulation implementation is planned for future releases.</p>
+<p><strong>Note</strong>: Execution is modeled at daily frequency with simple transaction costs. True intraday microstructure modeling (order books, tick data) is not used in the current experiment.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Import required libraries</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -1167,7 +1190,7 @@
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
 </span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="c1"># Import Cross-Asset Alpha Engine components</span>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="kn">from</span> <span class="nn">cross_asset_alpha_engine.data</span> <span class="kn">import</span> <span class="n">load_daily_bars</span><span class="p">,</span> <span class="n">load_intraday_bars</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="kn">from</span> <span class="nn">cross_asset_alpha_engine.data</span> <span class="kn">import</span> <span class="n">load_daily_bars</span>
 </span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="kn">from</span> <span class="nn">cross_asset_alpha_engine.utils</span> <span class="kn">import</span> <span class="n">setup_logger</span>
 </span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="kn">from</span> <span class="nn">cross_asset_alpha_engine.config</span> <span class="kn">import</span> <span class="p">(</span>
 </span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    <span class="n">DEFAULT_PARTICIPATION_RATE</span><span class="p">,</span> 

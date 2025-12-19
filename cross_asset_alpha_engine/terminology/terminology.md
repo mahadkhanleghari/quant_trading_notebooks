@@ -38,8 +38,8 @@
 **Technical Features**
 : Quantitative indicators derived from price and volume data, including momentum, volatility, and mean reversion signals.
 
-**Microstructure Features**
-: Features derived from intraday trading patterns, including VWAP deviations, volume anomalies, and bid-ask dynamics.
+**Daily Microstructure-Inspired Features**
+: Features inspired by microstructure concepts but computed from daily OHLCV bars only. Includes VWAP deviations, volume anomalies, and daily price patterns. Note: True intraday trading patterns and bid-ask dynamics require intraday/tick data, which is not used in the current experiment.
 
 **Cross-Asset Features**
 : Indicators that capture relationships between different asset classes, such as correlations, volatility spillovers, and risk sentiment.

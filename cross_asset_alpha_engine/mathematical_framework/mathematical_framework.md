@@ -1,5 +1,7 @@
 # Mathematical Framework
 
+**IMPORTANT: All empirical analysis in this project is conducted at daily frequency using daily OHLCV bars from Polygon.io. No intraday, tick, or order-book data is used in the current experiment.**
+
 ## Core Mathematical Foundations
 
 ### 1. Cross-Asset Alpha Generation Model
@@ -11,7 +13,7 @@ $$\alpha_t = \alpha_t^{tech} + \alpha_t^{micro} + \alpha_t^{cross} + \epsilon_t$
 
 Where:
 - $\alpha_t^{tech}$: Technical analysis alpha
-- $\alpha_t^{micro}$: Microstructure alpha  
+- $\alpha_t^{micro}$: Daily microstructure-inspired alpha (computed from daily OHLCV bars, not true intraday data)
 - $\alpha_t^{cross}$: Cross-asset alpha
 - $\epsilon_t$: Idiosyncratic noise
 
@@ -100,18 +102,20 @@ $$RSI_t = 100 - \frac{100}{1 + RS_t}$$
 Where:
 $$RS_t = \frac{\text{EMA}(\text{Gains}_t)}{\text{EMA}(\text{Losses}_t)}$$
 
-#### Microstructure Features
+#### Daily Microstructure-Inspired Features
 
-**VWAP Deviation**:
+**Note: All features are computed from daily OHLCV bars. No intraday or tick data is used.**
+
+**VWAP Deviation** (computed from daily bars):
 $$D_{t}^{VWAP} = \frac{P_t - VWAP_t}{VWAP_t}$$
 
-Where:
+Where $VWAP_t$ is computed from daily OHLCV data:
 $$VWAP_t = \frac{\sum_{i=1}^{n} P_i \cdot V_i}{\sum_{i=1}^{n} V_i}$$
 
-**Volume Z-Score**:
+**Volume Z-Score** (computed from daily volume):
 $$Z_t^{Vol} = \frac{V_t - \mu_{V,t}}{\sigma_{V,t}}$$
 
-Where $\mu_{V,t}$ and $\sigma_{V,t}$ are rolling mean and standard deviation of volume.
+Where $\mu_{V,t}$ and $\sigma_{V,t}$ are rolling mean and standard deviation of daily volume.
 
 #### Cross-Asset Features
 

@@ -1,8 +1,10 @@
 # System Architecture
 
+**IMPORTANT: All empirical analysis in this project is conducted at daily frequency using daily OHLCV bars from Polygon.io. No intraday, tick, or order-book data is used in the current experiment.**
+
 ## Overview
 
-The Cross-Asset Alpha Engine employs a modular, scalable architecture designed for both research and production deployment. The system separates concerns across data ingestion, feature engineering, regime detection, alpha generation, and portfolio construction.
+The Cross-Asset Alpha Engine employs a modular, scalable architecture designed for both research and production deployment. The system separates concerns across data ingestion, feature engineering, regime detection, alpha generation, and portfolio construction. Execution is modeled at daily close-to-close with simple costs, not an intraday microstructure model.
 
 ## High-Level Architecture
 
@@ -25,7 +27,7 @@ graph TB
     
     subgraph "Feature Layer"
         C1[Technical Analysis]
-        C2[Microstructure Analysis]
+        C2[Daily Microstructure-Inspired Analysis]
         C3[Cross-Asset Signals]
     end
     
@@ -152,13 +154,16 @@ class TechnicalFeatureEngine:
         return features
 ```
 
-#### Microstructure Analysis Module
+#### Daily Microstructure-Inspired Analysis Module
 ```python
 class MicrostructureFeatureEngine:
-    """Market microstructure feature generation."""
+    """Daily microstructure-inspired feature generation from daily OHLCV bars.
+    
+    Note: All features are computed from daily bars, not true intraday or tick data.
+    """
     
     def generate_vwap_features(self, data: pd.DataFrame) -> pd.DataFrame:
-        """VWAP-based microstructure features."""
+        """VWAP-based features computed from daily OHLCV bars."""
         features = data.copy()
         
         # VWAP deviation
@@ -351,13 +356,17 @@ class PortfolioConstructor:
 #### Backtesting Engine
 ```python
 class BacktestEngine:
-    """Comprehensive backtesting with realistic execution."""
+    """Comprehensive backtesting with daily execution and transaction costs.
+    
+    Note: Execution is modeled at daily close-to-close with simple costs,
+    not an intraday microstructure model. All analysis uses daily OHLCV bars only.
+    """
     
     def __init__(self, config: BacktestConfig):
         self.config = config
     
     def run_backtest(self, signals: pd.DataFrame, prices: pd.DataFrame) -> dict:
-        """Execute full backtest with transaction costs."""
+        """Execute full backtest with daily transaction costs (not intraday execution)."""
         
         results = {
             'positions': [],
@@ -397,14 +406,18 @@ class BacktestEngine:
         return results
     
     def _calculate_transaction_costs(self, trades: pd.Series, prices: pd.Series) -> float:
-        """Calculate realistic transaction costs."""
+        """Calculate simplified transaction costs for daily execution.
+        
+        Note: This is a simplified model for daily rebalancing. True intraday
+        microstructure modeling (order books, tick data) is not used.
+        """
         # Commission costs
         commission = trades.abs().sum() * self.config.commission_rate
         
-        # Bid-ask spread costs
+        # Bid-ask spread costs (simplified for daily execution)
         spread_cost = trades.abs().sum() * self.config.spread_cost
         
-        # Market impact (square root law)
+        # Market impact (simplified square root law for daily trades)
         market_impact = (trades.abs() ** 0.5).sum() * self.config.impact_coefficient
         
         return commission + spread_cost + market_impact

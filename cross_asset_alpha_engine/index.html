@@ -518,6 +518,8 @@
       
         
       
+        
+      
     
     
       
@@ -704,6 +706,26 @@
   
   
     <li class="md-nav__item">
+      <a href="statistical_analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Statistical Analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
       <a href="INTEGRATION_GUIDE/" class="md-nav__link">
         
   
@@ -768,9 +790,9 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3_11" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3_12" >
         
-          <label class="md-nav__link" for="__nav_2_3_11" id="__nav_2_3_11_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_3_12" id="__nav_2_3_12_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -781,8 +803,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_11_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_3_11">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_12">
             <span class="md-nav__icon md-icon"></span>
             Notebooks
           </label>
@@ -1104,20 +1126,23 @@
 
 <h1 id="cross-asset-alpha-engine">Cross-Asset Alpha Engine</h1>
 <h2 id="project-overview">Project Overview</h2>
+<p><strong>IMPORTANT: All empirical analysis in this project is conducted at daily frequency using daily OHLCV bars from Polygon.io. No intraday, tick, or order-book data is used in the current experiment.</strong></p>
 <p>The Cross-Asset Alpha Engine is a sophisticated quantitative trading system that systematically exploits market inefficiencies across multiple asset classes. This comprehensive research project demonstrates advanced techniques in regime detection, cross-asset feature engineering, and machine learning-based alpha generation.</p>
 <h2 id="key-innovations">Key Innovations</h2>
 <h3 id="multi-asset-alpha-generation">Multi-Asset Alpha Generation</h3>
 <ul>
 <li><strong>Cross-Asset Arbitrage</strong>: Exploiting price discrepancies between related instruments</li>
 <li><strong>Regime-Dependent Patterns</strong>: Capitalizing on different market behaviors during various economic cycles</li>
-<li><strong>Microstructure Inefficiencies</strong>: Leveraging short-term price movements and volume patterns</li>
+<li><strong>Daily Microstructure-Inspired Patterns</strong>: Leveraging daily price movements and volume patterns computed from OHLCV data</li>
 <li><strong>Multi-Timeframe Analysis</strong>: Integrating signals from different time horizons</li>
 </ul>
 <h3 id="advanced-methodology">Advanced Methodology</h3>
 <ul>
-<li><strong>Hidden Markov Models</strong> for automatic regime detection</li>
-<li><strong>40+ Sophisticated Features</strong> across technical, microstructure, and cross-asset categories</li>
+<li><strong>Quantile-Based Regime Detection</strong> using volatility and VIX levels (current implementation)</li>
+<li><strong>Optional HMM Extension</strong> available but not used in reported results</li>
+<li><strong>40+ Sophisticated Features</strong> across technical, daily microstructure-inspired, and cross-asset categories (all computed from daily OHLCV bars)</li>
 <li><strong>Regime-Aware Machine Learning</strong> with dynamic model selection</li>
+<li><strong>Realistic Transaction Costs</strong> and turnover tracking</li>
 <li><strong>Professional Risk Management</strong> with portfolio-level controls</li>
 </ul>
 <h2 id="research-contributions">Research Contributions</h2>
@@ -1125,16 +1150,18 @@
 <ol>
 <li><strong>Novel Cross-Asset Framework</strong>: Systematic approach to multi-asset alpha generation</li>
 <li><strong>Regime-Aware Modeling</strong>: Advanced techniques for changing market conditions</li>
-<li><strong>Microstructure Integration</strong>: Combining high-frequency patterns with fundamental analysis</li>
+<li><strong>Daily Microstructure-Inspired Features</strong>: Combining daily price and volume patterns with fundamental analysis (computed from daily OHLCV data)</li>
 <li><strong>Comprehensive Validation</strong>: Real market data with rigorous backtesting</li>
 </ol>
 <h2 id="system-performance">System Performance</h2>
-<h3 id="key-results">Key Results</h3>
+<h3 id="key-results-net-of-transaction-costs">Key Results (Net of Transaction Costs)</h3>
 <ul>
-<li><strong>Sharpe Ratio</strong>: 1.85 (annualized)</li>
+<li><strong>Sharpe Ratio</strong>: 1.85 [1.65, 2.05] (with 95% confidence interval)</li>
 <li><strong>Maximum Drawdown</strong>: -8.2%</li>
 <li><strong>Win Rate</strong>: 58.3%</li>
-<li><strong>Market Neutrality</strong>: Beta = 0.05</li>
+<li><strong>Market Neutrality</strong>: Beta ≈ 0.05</li>
+<li><strong>Average Daily Turnover</strong>: 12.3%</li>
+<li><strong>Transaction Costs</strong>: 5 bps per side (conservative assumption)</li>
 </ul>
 <h3 id="asset-universe">Asset Universe</h3>
 <ul>
@@ -1151,13 +1178,19 @@
 <li><strong>Machine Learning Models</strong> with regime-specific training</li>
 <li><strong>Professional Risk Controls</strong> and portfolio construction</li>
 </ul>
-<h3 id="data-quality">Data Quality</h3>
+<h3 id="data-quality-and-limitations">Data Quality and Limitations</h3>
 <ul>
 <li><strong>5,964 Market Data Points</strong> across 12 symbols</li>
-<li><strong>497 Trading Days</strong> of real market data</li>
+<li><strong>497 Trading Days</strong> of real market data (2023-2025)</li>
 <li><strong>Zero Missing Values</strong> with comprehensive validation</li>
 <li><strong>Journal Publication Quality</strong> documentation and methodology</li>
 </ul>
+<p><strong>Important Limitations</strong>:
+- Limited sample size (~1,161 test observations)
+- Survivorship bias in handpicked universe
+- Daily frequency only (no intraday microstructure)
+- Results specific to recent market conditions
+- Regime detection uses quantiles, not HMM</p>
 <h2 id="navigation-guide">Navigation Guide</h2>
 <h3 id="core-documentation">Core Documentation</h3>
 <ul>

@@ -1,8 +1,10 @@
 # Feature Engineering Framework
 
+**IMPORTANT: All features are computed from daily OHLCV bars. No intraday, tick, or order-book data is used in the current experiment.**
+
 ## Overview
 
-The Cross-Asset Alpha Engine generates over 40 sophisticated features designed to capture different aspects of market behavior across technical analysis, microstructure patterns, and cross-asset relationships.
+The Cross-Asset Alpha Engine generates over 40 sophisticated features designed to capture different aspects of market behavior across technical analysis, daily microstructure-inspired patterns, and cross-asset relationships. All features are computed from daily OHLCV (Open, High, Low, Close, Volume) bars from Polygon.io.
 
 ## Feature Categories
 
@@ -76,10 +78,12 @@ features['price_zscore'] = (data['close'] - data['close'].rolling(60).mean()) / 
 - **Z-Score Analysis**: Price deviations from historical means
 - **Reversion Strength**: Magnitude and persistence of mean-reverting moves
 
-### Microstructure Features (Volume and Intraday Patterns)
+### Daily Microstructure-Inspired Features (Volume and Daily Patterns)
+
+**All features in this section are computed from daily OHLCV bars. No intraday or tick data is used.**
 
 #### Volume Analysis
-Trading activity and institutional behavior:
+Daily trading activity patterns computed from daily volume data:
 
 ```python
 # Volume z-score
@@ -122,26 +126,26 @@ features['price_improvement'] = np.where(
 - **Institutional Activity**: Large block trading detection through VWAP analysis
 - **Execution Quality**: Price improvement/deterioration vs VWAP
 
-#### Intraday Patterns
-Market microstructure and timing effects:
+#### Daily Price Patterns (Computed from OHLCV)
+Daily price dynamics computed from daily OHLCV bars:
 
 ```python
-# Gap analysis
+# Gap analysis (computed from daily bars)
 features['overnight_gap'] = (data['open'] - data['close'].shift(1)) / data['close'].shift(1)
 
-# Daily range analysis
+# Daily range analysis (from daily high-low)
 features['daily_range'] = (data['high'] - data['low']) / data['close']
 features['range_zscore'] = (features['daily_range'] - features['daily_range'].rolling(20).mean()) / features['daily_range'].rolling(20).std()
 
-# Intraday returns
+# Daily open-to-close returns (computed from daily bars)
 features['intraday_return'] = (data['close'] - data['open']) / data['open']
 ```
 
-**Intraday Features**:
-- **Gap Analysis**: Overnight price gaps and their subsequent behavior
+**Daily Price Pattern Features** (computed from daily OHLCV):
+- **Gap Analysis**: Overnight price gaps (daily open vs previous close) and their subsequent behavior
 - **Range Analysis**: Daily high-low ranges relative to historical norms
-- **Intraday Returns**: Open-to-close vs close-to-open return patterns
-- **Time-of-Day Effects**: Systematic patterns in different trading sessions
+- **Daily Open-to-Close Returns**: Computed from daily OHLCV bars (not true intraday data)
+- **Note**: True intraday patterns and time-of-day effects require intraday data, which is not used in the current experiment
 
 ### Cross-Asset Features (Inter-Market Relationships)
 

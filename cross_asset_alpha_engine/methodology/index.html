@@ -518,6 +518,8 @@
       
         
       
+        
+      
     
     
       
@@ -719,11 +721,11 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#microstructure-features" class="md-nav__link">
-    Microstructure Features
+  <a href="#daily-microstructure-inspired-features" class="md-nav__link">
+    Daily Microstructure-Inspired Features
   </a>
   
-    <nav class="md-nav" aria-label="Microstructure Features">
+    <nav class="md-nav" aria-label="Daily Microstructure-Inspired Features">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -734,8 +736,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#intraday-pattern-recognition" class="md-nav__link">
-    Intraday Pattern Recognition
+  <a href="#daily-price-patterns-computed-from-ohlcv" class="md-nav__link">
+    Daily Price Patterns (Computed from OHLCV)
   </a>
   
 </li>
@@ -786,30 +788,30 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#hidden-markov-model-implementation" class="md-nav__link">
-    Hidden Markov Model Implementation
+  <a href="#current-implementation-volatilityvix-quantile-regimes" class="md-nav__link">
+    Current Implementation: Volatility/VIX Quantile Regimes
   </a>
   
-    <nav class="md-nav" aria-label="Hidden Markov Model Implementation">
+    <nav class="md-nav" aria-label="Current Implementation: Volatility/VIX Quantile Regimes">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#mathematical-framework" class="md-nav__link">
-    Mathematical Framework
+  <a href="#methodology" class="md-nav__link">
+    Methodology
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#observable-variables" class="md-nav__link">
-    Observable Variables
+  <a href="#regime-construction" class="md-nav__link">
+    Regime Construction
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#regime-interpretation" class="md-nav__link">
-    Regime Interpretation
+  <a href="#regime-descriptions" class="md-nav__link">
+    Regime Descriptions
   </a>
   
 </li>
@@ -820,16 +822,23 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#statistical-regime-detection" class="md-nav__link">
-    Statistical Regime Detection
+  <a href="#planned-extension-hidden-markov-model-implementation" class="md-nav__link">
+    Planned Extension: Hidden Markov Model Implementation
   </a>
   
-    <nav class="md-nav" aria-label="Statistical Regime Detection">
+    <nav class="md-nav" aria-label="Planned Extension: Hidden Markov Model Implementation">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#threshold-models" class="md-nav__link">
-    Threshold Models
+  <a href="#mathematical-framework" class="md-nav__link">
+    Mathematical Framework
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#todo-for-hmm-implementation" class="md-nav__link">
+    TODO for HMM Implementation
   </a>
   
 </li>
@@ -1140,6 +1149,26 @@
   
   
     <li class="md-nav__item">
+      <a href="../statistical_analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Statistical Analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../INTEGRATION_GUIDE/" class="md-nav__link">
         
   
@@ -1204,9 +1233,9 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3_11" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3_12" >
         
-          <label class="md-nav__link" for="__nav_2_3_11" id="__nav_2_3_11_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_3_12" id="__nav_2_3_12_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -1217,8 +1246,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_11_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_3_11">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_12">
             <span class="md-nav__icon md-icon"></span>
             Notebooks
           </label>
@@ -1539,6 +1568,7 @@
 
 
 <h1 id="cross-asset-alpha-engine-methodology">Cross-Asset Alpha Engine Methodology</h1>
+<p><strong>IMPORTANT: All empirical analysis in this project is conducted at daily frequency using daily OHLCV bars from Polygon.io. No intraday, tick, or order-book data is used in the current experiment.</strong></p>
 <h2 id="theoretical-foundation">Theoretical Foundation</h2>
 <h3 id="information-flow-theory">Information Flow Theory</h3>
 <p>The Cross-Asset Alpha Engine is built on the principle that financial markets are interconnected systems where information flows between asset classes create predictable patterns. Price movements in one asset class often precede movements in related assets, creating lead-lag relationships that can be systematically exploited.</p>
@@ -1603,7 +1633,8 @@
 </span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="n">rs</span> <span class="o">=</span> <span class="n">gains</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">14</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">/</span> <span class="n">losses</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">14</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 </span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="n">rsi</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">-</span> <span class="p">(</span><span class="mi">100</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">rs</span><span class="p">))</span>
 </span></code></pre></div>
-<h3 id="microstructure-features">Microstructure Features</h3>
+<h3 id="daily-microstructure-inspired-features">Daily Microstructure-Inspired Features</h3>
+<p><strong>Note: All features are computed from daily OHLCV bars; no intraday or tick data is used in the current experiment.</strong></p>
 <h4 id="volume-weighted-average-price-vwap-analysis">Volume-Weighted Average Price (VWAP) Analysis</h4>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># VWAP deviation</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">vwap_deviation</span> <span class="o">=</span> <span class="p">(</span><span class="n">price</span> <span class="o">-</span> <span class="n">vwap</span><span class="p">)</span> <span class="o">/</span> <span class="n">vwap</span>
@@ -1611,8 +1642,8 @@
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># Volume-price relationship</span>
 </span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="n">volume_zscore</span> <span class="o">=</span> <span class="p">(</span><span class="n">volume</span> <span class="o">-</span> <span class="n">volume</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">/</span> <span class="n">volume</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
 </span></code></pre></div>
-<h4 id="intraday-pattern-recognition">Intraday Pattern Recognition</h4>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Gap analysis</span>
+<h4 id="daily-price-patterns-computed-from-ohlcv">Daily Price Patterns (Computed from OHLCV)</h4>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Gap analysis (computed from daily bars)</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">overnight_gap</span> <span class="o">=</span> <span class="p">(</span><span class="n">open_price</span> <span class="o">-</span> <span class="n">close_price</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span> <span class="o">/</span> <span class="n">close_price</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
 </span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1"># Daily range analysis</span>
@@ -1636,38 +1667,63 @@
 </span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="n">flight_to_quality</span> <span class="o">=</span> <span class="p">(</span><span class="n">bond_returns</span> <span class="o">&gt;</span> <span class="n">bond_returns</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.8</span><span class="p">))</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">equity_returns</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
 </span></code></pre></div>
 <h2 id="regime-detection-methodology">Regime Detection Methodology</h2>
-<h3 id="hidden-markov-model-implementation">Hidden Markov Model Implementation</h3>
+<p><strong>IMPORTANT</strong>: The current experiment uses volatility/VIX quantile regimes, NOT Hidden Markov Models. HMM-based detection is available as an optional extension but is not used in the reported results.</p>
+<h3 id="current-implementation-volatilityvix-quantile-regimes">Current Implementation: Volatility/VIX Quantile Regimes</h3>
+<p>The reported results use a simple but effective quantile-based regime detection method:</p>
+<h4 id="methodology">Methodology</h4>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">from</span> <span class="nn">cross_asset_alpha_engine.regimes</span> <span class="kn">import</span> <span class="n">assign_regimes</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="c1"># Current experiment uses this method</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="n">regimes</span> <span class="o">=</span> <span class="n">assign_regimes</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;vol_vix_quantiles&quot;</span><span class="p">,</span> <span class="n">n_regimes</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</span></code></pre></div>
+<h4 id="regime-construction">Regime Construction</h4>
+<ol>
+<li><strong>Volatility Regime</strong>: 20-day realized volatility divided into 3 quantiles</li>
+<li>Low_Vol: Bottom 33% of volatility observations</li>
+<li>Med_Vol: Middle 33% of volatility observations  </li>
+<li>
+<p>High_Vol: Top 33% of volatility observations</p>
+</li>
+<li>
+<p><strong>VIX Regime</strong>: VIX level divided into 3 quantiles (when available)</p>
+</li>
+<li>Low_VIX: Bottom 33% of VIX levels</li>
+<li>Med_VIX: Middle 33% of VIX levels</li>
+<li>
+<p>High_VIX: Top 33% of VIX levels</p>
+</li>
+<li>
+<p><strong>Combined Regime</strong>: Cartesian product of volatility and VIX regimes</p>
+</li>
+<li>Results in up to 9 possible regime combinations</li>
+<li>Example: "Med_Vol_High_VIX" = medium volatility with high VIX</li>
+</ol>
+<h4 id="regime-descriptions">Regime Descriptions</h4>
+<ul>
+<li><strong>Low_Vol_Low_VIX</strong>: Calm, stable market conditions</li>
+<li><strong>Med_Vol_Med_VIX</strong>: Typical market environment  </li>
+<li><strong>High_Vol_High_VIX</strong>: Crisis or extreme stress conditions</li>
+<li><strong>Low_Vol_High_VIX</strong>: Unusual combination, potential turning point</li>
+<li><strong>High_Vol_Low_VIX</strong>: Unusual market dynamics</li>
+</ul>
+<h3 id="planned-extension-hidden-markov-model-implementation">Planned Extension: Hidden Markov Model Implementation</h3>
+<p><strong>Note</strong>: HMM-based regimes are available in the framework but require proper train/test implementation to avoid look-ahead bias.</p>
 <h4 id="mathematical-framework">Mathematical Framework</h4>
 <p>The HMM assumes markets exist in K unobservable states with transition probabilities:</p>
 <div class="arithmatex">\[P(S_t = j | S_{t-1} = i) = a_{ij}\]</div>
-<p><strong>State Estimation Algorithms</strong>:
-- <strong>Forward Algorithm</strong>: <span class="arithmatex">\(\alpha_t(i) = P(O_1, ..., O_t, S_t = i | \lambda)\)</span>
-- <strong>Backward Algorithm</strong>: <span class="arithmatex">\(\beta_t(i) = P(O_{t+1}, ..., O_T | S_t = i, \lambda)\)</span>
-- <strong>Viterbi Algorithm</strong>: Most likely state sequence
-- <strong>Baum-Welch</strong>: Maximum likelihood parameter estimation</p>
-<h4 id="observable-variables">Observable Variables</h4>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Regime detection features</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="n">regime_features</span> <span class="o">=</span> <span class="p">[</span>
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    <span class="s1">&#39;volatility_20d&#39;</span><span class="p">,</span>
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    <span class="s1">&#39;vix_level&#39;</span><span class="p">,</span>
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    <span class="s1">&#39;equity_bond_correlation&#39;</span><span class="p">,</span>
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    <span class="s1">&#39;volume_zscore&#39;</span><span class="p">,</span>
-</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>    <span class="s1">&#39;cross_asset_volatility_ratio&#39;</span>
-</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="p">]</span>
-</span></code></pre></div>
-<h4 id="regime-interpretation">Regime Interpretation</h4>
-<ul>
-<li><strong>Regime 1 (Low Volatility)</strong>: VIX &lt; 20, positive equity momentum, stable correlations</li>
-<li><strong>Regime 2 (High Volatility)</strong>: VIX &gt; 30, negative equity momentum, correlation breakdown</li>
-<li><strong>Regime 3 (Transition)</strong>: Mixed signals, changing correlations, moderate volatility</li>
-</ul>
-<h3 id="statistical-regime-detection">Statistical Regime Detection</h3>
-<h4 id="threshold-models">Threshold Models</h4>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Volatility-based regime switching</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="n">vol_regime</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">volatility_20d</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Low&#39;</span><span class="p">,</span> <span class="s1">&#39;Medium&#39;</span><span class="p">,</span> <span class="s1">&#39;High&#39;</span><span class="p">])</span>
+<h4 id="todo-for-hmm-implementation">TODO for HMM Implementation</h4>
+<p>To properly implement HMM-based regimes:
+1. Fit HMM only on training data
+2. Predict regimes on both train and test sets using fitted model
+3. Ensure no look-ahead bias in regime assignment
+4. Compare performance vs quantile-based method</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Future HMM implementation (not currently used)</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="kn">from</span> <span class="nn">cross_asset_alpha_engine.regimes</span> <span class="kn">import</span> <span class="n">RegimeHMM</span>
 </span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="c1"># VIX-based market stress identification</span>
-</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="n">stress_regime</span> <span class="o">=</span> <span class="p">(</span><span class="n">vix_level</span> <span class="o">&gt;</span> <span class="n">vix_level</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.8</span><span class="p">))</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="c1"># This would require proper train/test split</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="n">hmm_model</span> <span class="o">=</span> <span class="n">RegimeHMM</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="n">hmm_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_features</span><span class="p">)</span>  <span class="c1"># Only training data</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="n">regimes</span> <span class="o">=</span> <span class="n">hmm_model</span><span class="o">.</span><span class="n">predict_regimes</span><span class="p">(</span><span class="n">all_features</span><span class="p">)</span>  <span class="c1"># Predict on all data</span>
 </span></code></pre></div>
 <h2 id="machine-learning-architecture">Machine Learning Architecture</h2>
 <h3 id="random-forest-implementation">Random Forest Implementation</h3>

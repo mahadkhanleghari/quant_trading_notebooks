@@ -1,8 +1,10 @@
 # Implementation Guide
 
+**IMPORTANT: All empirical analysis in this project is conducted at daily frequency using daily OHLCV bars from Polygon.io. No intraday, tick, or order-book data is used in the current experiment.**
+
 ## Getting Started
 
-This guide provides step-by-step instructions for implementing and deploying the Cross-Asset Alpha Engine in your research or production environment.
+This guide provides step-by-step instructions for implementing and deploying the Cross-Asset Alpha Engine in your research or production environment. All features are computed from daily OHLCV bars, and execution is modeled at daily close-to-close with simple costs.
 
 ## Prerequisites
 
