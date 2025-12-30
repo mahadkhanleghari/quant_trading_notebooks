@@ -1200,28 +1200,27 @@
 
 <h1 id="advanced-crypto-market-microstructure-analysis">Advanced Crypto Market Microstructure Analysis</h1>
 <h2 id="quantitative-trading-research-for-digital-asset-markets">Quantitative Trading Research for Digital Asset Markets</h2>
-<p><strong>Author:</strong> Quantitative Trading Research<br />
+<p><strong>Author:</strong> mahad afzal<br />
 <strong>Date:</strong> December 2025<br />
-<strong>Focus:</strong> Bitcoin High-Frequency Dynamics &amp; Crypto Alpha Signals<br />
+<strong>Focus:</strong> Bitcoin High Frequency Dynamics &amp; Crypto Alpha Signals<br />
 <strong>Asset:</strong> BTC/USDT (24/7 Digital Markets)</p>
 <hr />
 <h2 id="executive-summary">Executive Summary</h2>
 <p>This notebook presents a comprehensive analysis of <strong>cryptocurrency market microstructure</strong> with direct applications to digital asset trading strategies. Crypto markets offer unique advantages for microstructure analysis:</p>
 <ul>
 <li><strong>24/7 Trading</strong> - No market closures, continuous price discovery</li>
-<li><strong>Real Order Flow Data</strong> - Binance provides actual buy/sell ratios (not proxies)</li>
+<li><strong>Real Order Flow Data</strong> - Binance provides actual buy sell ratios (not proxies)</li>
 <li><strong>High Frequency</strong> - Thousands of trades per minute during active periods</li>
 <li><strong>Pure Electronic</strong> - No legacy market maker intermediation</li>
 </ul>
 <h3 id="four-critical-research-areas">Four Critical Research Areas:</h3>
 <ol>
-<li><strong>Crypto Order Flow Imbalance</strong> - Using real buy/sell pressure data from Binance API</li>
-<li>** Multi-Timeframe VWAP Dynamics** - 1-hour and 24-hour VWAP analysis for 24/7 markets</li>
-<li>** 24/7 Seasonality Patterns** - Global trading session effects and weekend dynamics</li>
-<li>** Crypto Regime Detection** - Volatility clustering and liquidity regime identification</li>
+<li><strong>Crypto Order Flow Imbalance</strong> - Using real buy sell pressure data from Binance API</li>
+<li><strong>Multi Timeframe VWAP Dynamics</strong> - 1 hour and 24 hour VWAP analysis for 24/7 markets</li>
+<li><strong>24/7 Seasonality Patterns</strong> - Global trading session effects and weekend dynamics</li>
+<li><strong>Crypto Regime Detection</strong> - Volatility clustering and liquidity regime identification</li>
 </ol>
-<p><strong>Key Innovation:</strong> Unlike traditional equity analysis, this leverages crypto-native features like trade count, actual buy/sell ratios, and continuous market dynamics to identify superior alpha signals.</p>
-<p>These analyses demonstrate institutional-grade quantitative research capabilities specifically tailored for the $2+ trillion cryptocurrency market.</p>
+<p><strong>Key Innovation:</strong> Unlike traditional equity analysis, this leverages crypto native features like trade count, actual buy sell ratios, and continuous market dynamics to identify superior alpha signals.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -1256,7 +1255,7 @@ Analysis Date: 2025-12-10 22:25:21
 </code></pre></div>
 <hr />
 <h2 id="data-acquisition-preprocessing">Data Acquisition &amp; Preprocessing</h2>
-<p>We'll analyze liquid, actively-traded securities with high-frequency data. For this study, we focus on major equity indices and large-cap stocks that exhibit strong microstructure signals.</p>
+<p>I analyze liquid, actively traded securities with high frequency data. For this study, I focus on major equity indices and large cap stocks that exhibit strong microstructure signals.</p>
 <p><strong>Key Parameters:</strong>
 - <strong>Timeframe:</strong> 1-minute bars (suitable for microstructure analysis)
 - <strong>Period:</strong> Recent 30 trading days
@@ -1285,7 +1284,7 @@ Analysis Date: 2025-12-10 22:25:21
 </span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> Market activity summary:&quot;</span><span class="p">)</span>
 </span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   • Average trades per minute: </span><span class="si">{</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   • Average trade size: $</span><span class="si">{</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;trade_size&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   • Buy/sell pressure range: </span><span class="si">{</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;buy_sell_ratio&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;buy_sell_ratio&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   • Buy sell pressure range: </span><span class="si">{</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;buy_sell_ratio&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;buy_sell_ratio&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>
 </span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
 </span><span id="__span-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Error: </span><span class="si">{</span><span class="n">DATA_FILE</span><span class="si">}</span><span class="s2"> not found!&quot;</span><span class="p">)</span>
@@ -1336,7 +1335,7 @@ Analysis Date: 2025-12-10 22:25:21
  Market activity summary:
    • Average trades per minute: 114.2
    • Average trade size: $206477.99
-   • Buy/sell pressure range: 0.100 - 0.900
+   • Buy sell pressure range: 0.100 - 0.900
 </code></pre></div>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">df</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">])</span>
@@ -1434,15 +1433,15 @@ Analysis Date: 2025-12-10 22:25:21
    • Buy pressure std: 0.211
 </code></pre></div>
 <hr />
-<h1 id="1-order-book-imbalance-vs-future-returns">1. Order Book Imbalance vs Future Returns</h1>
+<h1 id="1-order-book-imbalance-versus-future-returns">1. Order Book Imbalance versus Future Returns</h1>
 <h2 id="theoretical-framework">Theoretical Framework</h2>
-<p>Order book imbalance is one of the most robust microstructure signals in high-frequency trading. The intuition is straightforward:</p>
+<p>Order book imbalance is one of the most robust microstructure signals in high frequency trading. The intuition is straightforward:</p>
 <ul>
 <li><strong>Excess Bid Liquidity</strong> → Buying pressure → Positive price pressure</li>
 <li><strong>Excess Ask Liquidity</strong> → Selling pressure → Negative price pressure</li>
 </ul>
 <h3 id="mathematical-formulation">Mathematical Formulation</h3>
-<p>For a given bar, we define:</p>
+<p>For a given bar, I define:</p>
 <div class="arithmatex">\[\text{Imbalance} = \frac{\text{Bid Volume} - \text{Ask Volume}}{\text{Bid Volume} + \text{Ask Volume}}\]</div>
 <p>Where:
 - Bid Volume ≈ Volume when price moves up (close &gt; open)
@@ -1454,7 +1453,7 @@ Analysis Date: 2025-12-10 22:25:21
 <strong>H₃:</strong> The effect is strongest during high volatility periods</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot; Computing crypto order flow imbalance...&quot;</span><span class="p">)</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">if</span> <span class="s1">&#39;buy_pressure&#39;</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; Using real buy/sell data from Binance API&quot;</span><span class="p">)</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; Using real buy sell data from Binance API&quot;</span><span class="p">)</span>
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;order_imbalance&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;buy_pressure&#39;</span><span class="p">]</span>
 </span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;order_imbalance_smooth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;buy_pressure_ma&#39;</span><span class="p">]</span>
 </span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="k">else</span><span class="p">:</span>
@@ -1493,7 +1492,7 @@ Analysis Date: 2025-12-10 22:25:21
 </span><span id="__span-3-39"><a id="__codelineno-3-39" name="__codelineno-3-39" href="#__codelineno-3-39"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> Quintiles created for portfolio analysis&quot;</span><span class="p">)</span>
 </span></code></pre></div>
 <div class="language-text highlight"><pre><span></span><code> Computing crypto order flow imbalance...
- Using real buy/sell data from Binance API
+ Using real buy sell data from Binance API
  Created trade-intensity weighted imbalance
  Crypto order flow imbalance computed
 
@@ -1642,22 +1641,22 @@ Correlation between Order Imbalance and Forward Returns:
 <p>Volume-Weighted Average Price (VWAP) serves as a critical reference point for institutional traders:</p>
 <ul>
 <li><strong>Execution Benchmark</strong>: Institutional desks aim to trade near VWAP</li>
-<li><strong>Mean-Reversion Point</strong>: Price tends to gravitate toward VWAP</li>
+<li><strong>Mean Reversion Point</strong>: Price tends to gravitate toward VWAP</li>
 <li><strong>Momentum Signal</strong>: Persistent divergence from VWAP indicates trend strength</li>
 </ul>
 <h3 id="the-vwap-magnet-effect">The "VWAP Magnet Effect"</h3>
-<p>Market microstructure theory suggests that price should exhibit mean-reversion to VWAP on intraday timeframes due to:</p>
+<p>Market microstructure theory suggests that price should exhibit mean reversion to VWAP on intraday timeframes due to:</p>
 <ol>
 <li><strong>Institutional algo trading</strong> targeting VWAP execution</li>
-<li><strong>Market-making activity</strong> around the fair value anchor</li>
+<li><strong>Market making activity</strong> around the fair value anchor</li>
 <li><strong>Information-driven mean reversion</strong> as prices overshoot and correct</li>
 </ol>
 <h3 id="key-metrics">Key Metrics</h3>
-<p>We analyze:
+<p>I analyze:
 - <strong>VWAP Distance</strong>: <span class="arithmatex">\((Price - VWAP) / VWAP\)</span>
-- <strong>Reversion Speed</strong>: Half-life of VWAP deviations
+- <strong>Reversion Speed</strong>: Half life of VWAP deviations
 - <strong>Drift Patterns</strong>: Systematic directional movement relative to VWAP
-- <strong>Volume-Conditional Behavior</strong>: How volume affects VWAP dynamics</p>
+- <strong>Volume Conditional Behavior</strong>: How volume affects VWAP dynamics</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot; Analyzing crypto VWAP dynamics...&quot;</span><span class="p">)</span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="n">df</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">date</span>
@@ -1692,7 +1691,7 @@ Correlation between Order Imbalance and Forward Returns:
 </span><span id="__span-6-32"><a id="__codelineno-6-32" name="__codelineno-6-32" href="#__codelineno-6-32"></a><span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;vwap_distance&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
 </span><span id="__span-6-33"><a id="__codelineno-6-33" name="__codelineno-6-33" href="#__codelineno-6-33"></a>
 </span><span id="__span-6-34"><a id="__codelineno-6-34" name="__codelineno-6-34" href="#__codelineno-6-34"></a><span class="k">if</span> <span class="s1">&#39;vwap_distance_24h&#39;</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-</span><span id="__span-6-35"><a id="__codelineno-6-35" name="__codelineno-6-35" href="#__codelineno-6-35"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> Multi-timeframe VWAP analysis:&quot;</span><span class="p">)</span>
+</span><span id="__span-6-35"><a id="__codelineno-6-35" name="__codelineno-6-35" href="#__codelineno-6-35"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> Multi timeframe VWAP analysis:&quot;</span><span class="p">)</span>
 </span><span id="__span-6-36"><a id="__codelineno-6-36" name="__codelineno-6-36" href="#__codelineno-6-36"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   • 1h VWAP distance std: </span><span class="si">{</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;vwap_distance_1h&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> bps&quot;</span><span class="p">)</span>
 </span><span id="__span-6-37"><a id="__codelineno-6-37" name="__codelineno-6-37" href="#__codelineno-6-37"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   • 24h VWAP distance std: </span><span class="si">{</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;vwap_distance_24h&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> bps&quot;</span><span class="p">)</span>
 </span><span id="__span-6-38"><a id="__codelineno-6-38" name="__codelineno-6-38" href="#__codelineno-6-38"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   • Correlation (1h vs 24h): </span><span class="si">{</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;vwap_distance_1h&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;vwap_distance_24h&#39;</span><span class="p">])</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -1724,7 +1723,7 @@ min      -1520.397837
 max       2006.439784
 Name: vwap_distance, dtype: float64
 
- Multi-timeframe VWAP analysis:
+ Multi timeframe VWAP analysis:
    • 1h VWAP distance std: 369.96 bps
    • 24h VWAP distance std: 1781.17 bps
    • Correlation (1h vs 24h): 0.298
@@ -1801,7 +1800,7 @@ In crypto terms: 0.5 hours (24/7 market)
 </code></pre></div>
 <hr />
 <h1 id="3-intraday-return-seasonality-analysis">3. Intraday Return Seasonality Analysis</h1>
-<h2 id="time-of-day-effects-in-equity-markets">Time-of-Day Effects in Equity Markets</h2>
+<h2 id="time-of-day-effects-in-equity-markets">Time of Day Effects in Equity Markets</h2>
 <p>Intraday seasonality is a well-documented phenomenon in financial markets, driven by:</p>
 <ol>
 <li><strong>Market Opening Effects</strong> (9:30-10:00 AM): High volatility, directional momentum, liquidity influx</li>
@@ -1809,13 +1808,13 @@ In crypto terms: 0.5 hours (24/7 market)
 <li><strong>Closing Auction</strong> (3:30-4:00 PM): Volume surge, momentum acceleration, benchmark-driven flows</li>
 </ol>
 <h3 id="economic-rationale">Economic Rationale</h3>
-<p>Time-of-day patterns emerge from:
+<p>Time of day patterns emerge from:
 - <strong>Overnight information release</strong> creating opening price discovery
 - <strong>Institutional trading patterns</strong> (VWAP execution, MOC orders)
-- <strong>Retail vs institutional flow composition</strong> varying throughout the day
+- <strong>Retail versus institutional flow composition</strong> varying throughout the day
 - <strong>Market maker inventory management</strong> and intraday risk constraints</p>
 <h3 id="hot-minutes-identification">"Hot Minutes" Identification</h3>
-<p>We identify minutes with:
+<p>I identify minutes with:
 - <strong>Statistically significant</strong> excess returns
 - <strong>Consistent direction</strong> across multiple days
 - <strong>Economic significance</strong> (Sharpe ratio &gt; 0.5)
@@ -1976,18 +1975,18 @@ HOT MINUTES (Top Alpha Opportunities):
 <h2 id="multi-dimensional-market-state-space">Multi-Dimensional Market State Space</h2>
 <p>Markets transition between distinct microstructure regimes characterized by different:</p>
 <ol>
-<li><strong>Volatility Dynamics</strong>: High vs low volatility periods</li>
-<li><strong>Liquidity Conditions</strong>: Tight vs wide spreads, depth availability</li>
-<li><strong>Order Flow Patterns</strong>: Balanced vs imbalanced, momentum vs mean-reversion</li>
-<li><strong>Information Asymmetry</strong>: Price discovery vs noise trading</li>
+<li><strong>Volatility Dynamics</strong>: High versus low volatility periods</li>
+<li><strong>Liquidity Conditions</strong>: Tight versus wide spreads, depth availability</li>
+<li><strong>Order Flow Patterns</strong>: Balanced versus imbalanced, momentum versus mean reversion</li>
+<li><strong>Information Asymmetry</strong>: Price discovery versus noise trading</li>
 </ol>
 <h3 id="why-regime-detection-matters">Why Regime Detection Matters</h3>
 <p><strong>Adaptive Strategy Deployment</strong>:
-- Mean-reversion strategies perform well in <strong>low volatility, high liquidity</strong> regimes
+- Mean reversion strategies perform well in <strong>low volatility, high liquidity</strong> regimes
 - Momentum strategies excel during <strong>high volatility, directional flow</strong> regimes
-- Market-making requires <strong>balanced flow, stable spreads</strong></p>
+- Market making requires <strong>balanced flow, stable spreads</strong></p>
 <h3 id="methodology">Methodology</h3>
-<p>We employ <strong>unsupervised machine learning</strong> to identify regimes:</p>
+<p>I employ <strong>unsupervised machine learning</strong> to identify regimes:</p>
 <ol>
 <li><strong>Feature Engineering</strong>: Construct regime-discriminating features</li>
 <li><strong>Dimensionality Reduction</strong>: PCA to capture dominant variance patterns</li>
@@ -2290,7 +2289,7 @@ Sharpe Ratio (ann.): -1.99
 </code></pre></div>
 <hr />
 <h2 id="executive-summary-of-results">Executive Summary of Results</h2>
-<p>This comprehensive market microstructure analysis has revealed several actionable insights for high-frequency trading strategies:</p>
+<p>This comprehensive market microstructure analysis has revealed several actionable insights for high frequency trading strategies:</p>
 <h3 id="1-order-book-imbalance-predictability">1. Order Book Imbalance Predictability</h3>
 <p><strong>Key Finding:</strong> Order flow imbalance demonstrates statistically significant predictive power for short-horizon returns (1-15 minutes)</p>
 <p><strong>Trading Implications:</strong>
@@ -2304,22 +2303,22 @@ Sharpe Ratio (ann.): -1.99
 - Transaction costs critical to profitability</p>
 <hr />
 <h3 id="2-vwap-mean-reversion-dynamics">2. VWAP Mean Reversion Dynamics</h3>
-<p><strong>Key Finding:</strong> Strong mean-reversion to intraday VWAP, with measurable half-life and predictable reversion patterns</p>
+<p><strong>Key Finding:</strong> Strong mean reversion to intraday VWAP, with measurable half life and predictable reversion patterns</p>
 <p><strong>Trading Implications:</strong>
-- Price deviations &gt;10 bps from VWAP exhibit reversion tendency
-- Mean-reversion speed varies by time-of-day and liquidity regime
-- VWAP can serve as dynamic support/resistance level for intraday strategies
-- Volume-conditioned signals improve performance</p>
+- Price deviations greater than 10 bps from VWAP exhibit reversion tendency
+- Mean reversion speed varies by time of day and liquidity regime
+- VWAP can serve as dynamic support resistance level for intraday strategies
+- Volume conditioned signals improve performance</p>
 <p><strong>Risk Considerations:</strong>
-- Regime-dependent behavior (weaker in high volatility)
+- Regime dependent behavior (weaker in high volatility)
 - Institutional VWAP algorithms can amplify deviations temporarily
-- End-of-day effects reduce mean-reversion reliability</p>
+- End of day effects reduce mean reversion reliability</p>
 <hr />
 <h3 id="3-intraday-seasonality-patterns">3. Intraday Seasonality Patterns</h3>
-<p><strong>Key Finding:</strong> Significant time-of-day effects with identifiable "hot minutes" offering consistent alpha</p>
+<p><strong>Key Finding:</strong> Significant time of day effects with identifiable hot minutes offering consistent alpha</p>
 <p><strong>Trading Implications:</strong>
 - Market open (9:30-10:00) exhibits highest volatility and directional momentum
-- Lunch period (12:00-2:00) favors mean-reversion strategies
+- Lunch period (12:00-2:00) favors mean reversion strategies
 - Closing auction (3:30-4:00) shows strong momentum and volume surges
 - Multiple minutes show Sharpe ratios &gt; 0.5 in isolation</p>
 <p><strong>Risk Considerations:</strong>
@@ -2330,7 +2329,7 @@ Sharpe Ratio (ann.): -1.99
 <h3 id="4-microstructure-regime-framework">4. Microstructure Regime Framework</h3>
 <p><strong>Key Finding:</strong> Market exhibits 4 distinct microstructure regimes with different risk-return characteristics</p>
 <p><strong>Trading Implications:</strong>
-- <strong>Low Vol + Tight Spread:</strong> Optimal for market-making and mean-reversion
+- <strong>Low Vol + Tight Spread:</strong> Optimal for market making and mean reversion
 - <strong>High Vol + Tight Spread:</strong> Momentum strategies perform best
 - <strong>Low Vol + Wide Spread:</strong> Reduced opportunities, caution warranted
 - <strong>High Vol + Wide Spread:</strong> High risk but largest potential moves</p>
@@ -2343,8 +2342,8 @@ Sharpe Ratio (ann.): -1.99
 <p>Based on these findings, an optimal microstructure-aware trading system would:</p>
 <ol>
 <li><strong>Monitor Order Flow Imbalance</strong> for directional signals at 1-5 minute horizons</li>
-<li><strong>Track VWAP Distance</strong> for mean-reversion opportunities in calm markets</li>
-<li><strong>Adjust Strategy by Time-of-Day</strong> leveraging intraday seasonality patterns</li>
+<li><strong>Track VWAP Distance</strong> for mean reversion opportunities in calm markets</li>
+<li><strong>Adjust Strategy by Time of Day</strong> leveraging intraday seasonality patterns</li>
 <li><strong>Implement Regime Detection</strong> for dynamic strategy allocation</li>
 </ol>
 <h3 id="estimated-performance-envelope">Estimated Performance Envelope</h3>
@@ -2365,7 +2364,6 @@ Sharpe Ratio (ann.): -1.99
 <li><strong>Live Testing:</strong> Paper trading with latency-accurate simulation</li>
 </ol>
 <hr />
-<p><em>This analysis represents institutional-grade quantitative research demonstrating deep understanding of market microstructure, statistical rigor, and practical trading implementation considerations.</em></p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
 </span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;COMPREHENSIVE ANALYSIS SUMMARY&quot;</span><span class="p">)</span>
 </span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
@@ -2406,11 +2404,11 @@ Sharpe Ratio (ann.): -1.99
 </span><span id="__span-14-38"><a id="__codelineno-14-38" name="__codelineno-14-38" href="#__codelineno-14-38"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> KEY INSIGHTS&quot;</span><span class="p">)</span>
 </span><span id="__span-14-39"><a id="__codelineno-14-39" name="__codelineno-14-39" href="#__codelineno-14-39"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
 </span><span id="__span-14-40"><a id="__codelineno-14-40" name="__codelineno-14-40" href="#__codelineno-14-40"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot; Order flow imbalance shows statistically significant predictive power&quot;</span><span class="p">)</span>
-</span><span id="__span-14-41"><a id="__codelineno-14-41" name="__codelineno-14-41" href="#__codelineno-14-41"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot; VWAP acts as strong mean-reversion anchor with measurable half-life&quot;</span><span class="p">)</span>
+</span><span id="__span-14-41"><a id="__codelineno-14-41" name="__codelineno-14-41" href="#__codelineno-14-41"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot; VWAP acts as strong mean reversion anchor with measurable half life&quot;</span><span class="p">)</span>
 </span><span id="__span-14-42"><a id="__codelineno-14-42" name="__codelineno-14-42" href="#__codelineno-14-42"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot; Intraday seasonality patterns present exploitable opportunities&quot;</span><span class="p">)</span>
 </span><span id="__span-14-43"><a id="__codelineno-14-43" name="__codelineno-14-43" href="#__codelineno-14-43"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot; Four distinct market regimes identified with unique characteristics&quot;</span><span class="p">)</span>
 </span><span id="__span-14-44"><a id="__codelineno-14-44" name="__codelineno-14-44" href="#__codelineno-14-44"></a>
-</span><span id="__span-14-45"><a id="__codelineno-14-45" name="__codelineno-14-45" href="#__codelineno-14-45"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">🎓 RESEARCH QUALITY INDICATORS&quot;</span><span class="p">)</span>
+</span><span id="__span-14-45"><a id="__codelineno-14-45" name="__codelineno-14-45" href="#__codelineno-14-45"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">RESEARCH QUALITY INDICATORS&quot;</span><span class="p">)</span>
 </span><span id="__span-14-46"><a id="__codelineno-14-46" name="__codelineno-14-46" href="#__codelineno-14-46"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
 </span><span id="__span-14-47"><a id="__codelineno-14-47" name="__codelineno-14-47" href="#__codelineno-14-47"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot; Statistical significance testing applied throughout&quot;</span><span class="p">)</span>
 </span><span id="__span-14-48"><a id="__codelineno-14-48" name="__codelineno-14-48" href="#__codelineno-14-48"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot; Transaction cost considerations integrated&quot;</span><span class="p">)</span>
@@ -2513,7 +2511,7 @@ Sharpe Ratio (ann.): -1.99
 </span><span id="__span-14-145"><a id="__codelineno-14-145" name="__codelineno-14-145" href="#__codelineno-14-145"></a>    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   - Autocorrelation: </span><span class="si">{</span><span class="n">reversion_corr</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="se">\\</span><span class="s2">n&quot;</span><span class="p">)</span>
 </span><span id="__span-14-146"><a id="__codelineno-14-146" name="__codelineno-14-146" href="#__codelineno-14-146"></a>    <span class="k">if</span> <span class="n">reversion_corr</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">reversion_corr</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
 </span><span id="__span-14-147"><a id="__codelineno-14-147" name="__codelineno-14-147" href="#__codelineno-14-147"></a>        <span class="n">half_life</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">reversion_corr</span><span class="p">)</span>
-</span><span id="__span-14-148"><a id="__codelineno-14-148" name="__codelineno-14-148" href="#__codelineno-14-148"></a>        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   - Half-life: </span><span class="si">{</span><span class="n">half_life</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> minutes</span><span class="se">\\</span><span class="s2">n</span><span class="se">\\</span><span class="s2">n&quot;</span><span class="p">)</span>
+</span><span id="__span-14-148"><a id="__codelineno-14-148" name="__codelineno-14-148" href="#__codelineno-14-148"></a>        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   - Half life: </span><span class="si">{</span><span class="n">half_life</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> minutes</span><span class="se">\\</span><span class="s2">n</span><span class="se">\\</span><span class="s2">n&quot;</span><span class="p">)</span>
 </span><span id="__span-14-149"><a id="__codelineno-14-149" name="__codelineno-14-149" href="#__codelineno-14-149"></a>
 </span><span id="__span-14-150"><a id="__codelineno-14-150" name="__codelineno-14-150" href="#__codelineno-14-150"></a>    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;3. Intraday Seasonality:</span><span class="se">\\</span><span class="s2">n&quot;</span><span class="p">)</span>
 </span><span id="__span-14-151"><a id="__codelineno-14-151" name="__codelineno-14-151" href="#__codelineno-14-151"></a>    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   - Significant minutes: </span><span class="si">{</span><span class="n">seasonality</span><span class="p">[</span><span class="s1">&#39;significant&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">seasonality</span><span class="p">)</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">season_signal_ratio</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">)</span><span class="se">\\</span><span class="s2">n&quot;</span><span class="p">)</span>
@@ -2540,7 +2538,7 @@ Sharpe Ratio (ann.): -1.99
 </span><span id="__span-14-172"><a id="__codelineno-14-172" name="__codelineno-14-172" href="#__codelineno-14-172"></a>
 </span><span id="__span-14-173"><a id="__codelineno-14-173" name="__codelineno-14-173" href="#__codelineno-14-173"></a>    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">nMETHODOLOGY NOTES</span><span class="se">\\</span><span class="s2">n&quot;</span><span class="p">)</span>
 </span><span id="__span-14-174"><a id="__codelineno-14-174" name="__codelineno-14-174" href="#__codelineno-14-174"></a>    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">20</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">n&quot;</span><span class="p">)</span>
-</span><span id="__span-14-175"><a id="__codelineno-14-175" name="__codelineno-14-175" href="#__codelineno-14-175"></a>    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;- Order flow imbalance calculated from real buy/sell ratios</span><span class="se">\\</span><span class="s2">n&quot;</span><span class="p">)</span>
+</span><span id="__span-14-175"><a id="__codelineno-14-175" name="__codelineno-14-175" href="#__codelineno-14-175"></a>    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;- Order flow imbalance calculated from real buy sell ratios</span><span class="se">\\</span><span class="s2">n&quot;</span><span class="p">)</span>
 </span><span id="__span-14-176"><a id="__codelineno-14-176" name="__codelineno-14-176" href="#__codelineno-14-176"></a>    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;- VWAP analysis uses 1-hour and 24-hour rolling windows</span><span class="se">\\</span><span class="s2">n&quot;</span><span class="p">)</span>
 </span><span id="__span-14-177"><a id="__codelineno-14-177" name="__codelineno-14-177" href="#__codelineno-14-177"></a>    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;- Seasonality tested across all 1,440 minutes of trading day</span><span class="se">\\</span><span class="s2">n&quot;</span><span class="p">)</span>
 </span><span id="__span-14-178"><a id="__codelineno-14-178" name="__codelineno-14-178" href="#__codelineno-14-178"></a>    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;- Regime detection via PCA + K-means clustering</span><span class="se">\\</span><span class="s2">n&quot;</span><span class="p">)</span>
@@ -2814,11 +2812,11 @@ Regime Return Spread: 11.49 bps
  KEY INSIGHTS
 ------------------------------------------------------------
  Order flow imbalance shows statistically significant predictive power
- VWAP acts as strong mean-reversion anchor with measurable half-life
+ VWAP acts as strong mean reversion anchor with measurable half life
  Intraday seasonality patterns present exploitable opportunities
  Four distinct market regimes identified with unique characteristics
 
-🎓 RESEARCH QUALITY INDICATORS
+RESEARCH QUALITY INDICATORS
 ------------------------------------------------------------
  Statistical significance testing applied throughout
  Transaction cost considerations integrated
