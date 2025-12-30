@@ -31,7 +31,6 @@ These analyses demonstrate institutional-grade quantitative research capabilitie
 
 
 ```python
-# Core Libraries
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -40,7 +39,6 @@ from datetime import datetime, timedelta
 import warnings
 warnings.filterwarnings('ignore')
 
-# Statistical Analysis
 from scipy import stats
 from scipy.signal import find_peaks
 from sklearn.preprocessing import StandardScaler
@@ -50,8 +48,6 @@ from statsmodels.tsa.stattools import acf, pacf
 from statsmodels.regression.linear_model import OLS
 from statsmodels.tools import add_constant
 
-# Plotting Configuration
-# Using seaborn-darkgrid for Python 3.7 compatibility
 plt.style.use('seaborn-darkgrid')
 sns.set_palette("husl")
 plt.rcParams['figure.figsize'] = (14, 8)
@@ -85,7 +81,6 @@ We'll analyze liquid, actively-traded securities with high-frequency data. For t
 
 
 ```python
-# Data Configuration
 SYMBOL = 'BTC/USDT'
 DATA_FILE = '../../data/BTC_minute_data.csv'
 
@@ -93,7 +88,6 @@ print(f" Loading {SYMBOL} cryptocurrency data from CSV file...")
 print(" Source: Binance 1-minute OHLCV + microstructure features")
 print("-" * 60)
 
-# Load data from CSV
 try:
     df = pd.read_csv(DATA_FILE, parse_dates=['timestamp'])
     print(f"\n Data loaded: {len(df):,} bars")
@@ -168,69 +162,57 @@ except FileNotFoundError:
 
 
 ```python
-# Feature Engineering - Crypto Microstructure Variables
 df = df.copy()
 df['timestamp'] = pd.to_datetime(df['timestamp'])
 df = df.set_index('timestamp').sort_index()
 
 print(" Engineering crypto microstructure features...")
 
-# Returns at multiple horizons
 df['returns_1min'] = df['close'].pct_change(1)
 df['returns_5min'] = df['close'].pct_change(5)
 df['returns_15min'] = df['close'].pct_change(15)
 df['returns_30min'] = df['close'].pct_change(30)
 df['returns_60min'] = df['close'].pct_change(60)
 
-# Forward returns (for predictability analysis)
 df['fwd_return_1min'] = df['returns_1min'].shift(-1)
 df['fwd_return_5min'] = df['close'].pct_change(5).shift(-5)
 df['fwd_return_15min'] = df['close'].pct_change(15).shift(-15)
 df['fwd_return_30min'] = df['close'].pct_change(30).shift(-30)
 df['fwd_return_60min'] = df['close'].pct_change(60).shift(-60)
 
-# Price spread and range
 df['spread'] = (df['high'] - df['low']) / df['close']
 df['mid_price'] = (df['high'] + df['low']) / 2
 
-# Volume features (enhanced for crypto)
 df['dollar_volume'] = df['close'] * df['volume']
 df['volume_ma_20'] = df['volume'].rolling(20).mean()
 df['volume_ratio'] = df['volume'] / df['volume_ma_20']
 
-#  CRYPTO-SPECIFIC FEATURES (unique to crypto markets!)
 if 'count' in df.columns:
-    df['trade_intensity'] = df['count'] / df['count'].rolling(20).mean()  # Trade frequency vs average
-    df['avg_trade_size'] = df['dollar_volume'] / df['count']  # Average $ per trade
+    df['trade_intensity'] = df['count'] / df['count'].rolling(20).mean()
+    df['avg_trade_size'] = df['dollar_volume'] / df['count']
     df['large_trade_ratio'] = (df['avg_trade_size'] > df['avg_trade_size'].rolling(60).quantile(0.8)).astype(int)
 
 if 'buy_sell_ratio' in df.columns:
-    df['buy_pressure'] = df['buy_sell_ratio'] - 0.5  # Centered around 0
+    df['buy_pressure'] = df['buy_sell_ratio'] - 0.5
     df['buy_pressure_ma'] = df['buy_pressure'].rolling(10).mean()
     df['buy_pressure_vol'] = df['buy_pressure'].rolling(20).std()
 
-# Volatility (24/7 crypto markets - use 1440 minutes per day)
-df['volatility_20'] = df['returns_1min'].rolling(20).std() * np.sqrt(1440)  # Annualized for 24/7
+df['volatility_20'] = df['returns_1min'].rolling(20).std() * np.sqrt(1440)
 
-# VWAP Calculation (24-hour rolling for crypto)
 df['vwap_24h'] = df['dollar_volume'].rolling(1440).sum() / df['volume'].rolling(1440).sum()
 df['vwap_1h'] = df['dollar_volume'].rolling(60).sum() / df['volume'].rolling(60).sum()
 
-# Time features (24/7 crypto markets)
 df['hour'] = df.index.hour
 df['minute'] = df.index.minute
 df['minute_of_day'] = df['hour'] * 60 + df['minute']
 df['day_of_week'] = df.index.dayofweek
 
-# 🌍 Crypto trading sessions (no filtering - 24/7 markets!)
-df['trading_session'] = 'Always_Open'  # Crypto never sleeps!
-df['is_weekend'] = (df['day_of_week'] >= 5).astype(int)  # Weekend effect in crypto
+df['trading_session'] = 'Always_Open'
+df['is_weekend'] = (df['day_of_week'] >= 5).astype(int)
 
-# Market microstructure regimes
 df['high_activity'] = (df['count'] > df['count'].rolling(60).quantile(0.8)).astype(int)
 df['high_volatility'] = (df['volatility_20'] > df['volatility_20'].rolling(60).quantile(0.8)).astype(int)
 
-# Remove NaN values
 df = df.dropna()
 
 print(f" Crypto feature engineering complete!")
@@ -239,7 +221,6 @@ print(f" Final dataset: {len(df):,} bars across {unique_days} days")
 print(f" 24/7 coverage: {len(df) / (unique_days * 1440) * 100:.1f}% of possible minutes")
 print(f" Features created: {len(df.columns)} total columns")
 
-# Show crypto-specific feature summary
 crypto_cols = [col for col in df.columns if any(x in col.lower() for x in ['trade', 'buy', 'sell', 'pressure', 'intensity'])]
 if crypto_cols:
     print(f"\n Crypto-specific features:")
@@ -311,42 +292,31 @@ This simplified proxy captures directional order flow without tick-by-tick data.
 
 
 ```python
-# Compute Crypto Order Flow Imbalance
-# Crypto advantage: We have REAL buy/sell data from Binance!
-
 print(" Computing crypto order flow imbalance...")
-
-# Method 1: Use actual buy/sell ratio from Binance (superior to bar direction!)
 if 'buy_pressure' in df.columns:
     print(" Using real buy/sell data from Binance API")
-    df['order_imbalance'] = df['buy_pressure']  # Already centered around 0
+    df['order_imbalance'] = df['buy_pressure']
     df['order_imbalance_smooth'] = df['buy_pressure_ma']
 else:
     print(" Fallback: Using bar direction proxy")
-    # Fallback method using bar direction
     df['bar_direction'] = np.sign(df['close'] - df['open'])
     df['buy_volume'] = df['volume'] * np.where(df['bar_direction'] > 0, 1, 0)
     df['sell_volume'] = df['volume'] * np.where(df['bar_direction'] < 0, 1, 0)
     
-    # Smooth volume signals over short windows
     window = 5
     df['buy_volume_smooth'] = df['buy_volume'].rolling(window).sum()
     df['sell_volume_smooth'] = df['sell_volume'].rolling(window).sum()
     
-    # Order Book Imbalance
     df['order_imbalance'] = (df['buy_volume_smooth'] - df['sell_volume_smooth']) / \
                              (df['buy_volume_smooth'] + df['sell_volume_smooth'] + 1e-10)
     df['order_imbalance_smooth'] = df['order_imbalance'].rolling(5).mean()
 
-# Enhanced imbalance with trade intensity
 if 'trade_intensity' in df.columns:
     df['weighted_imbalance'] = df['order_imbalance'] * df['trade_intensity']
     print(" Created trade-intensity weighted imbalance")
 
-# Normalize imbalance
 df['order_imbalance_norm'] = (df['order_imbalance'] - df['order_imbalance'].mean()) / df['order_imbalance'].std()
 
-# Create quintiles for portfolio analysis
 df['imbalance_quintile'] = pd.qcut(df['order_imbalance'], q=5, labels=['Q1_Sell', 'Q2', 'Q3', 'Q4', 'Q5_Buy'], duplicates='drop')
 
 print(" Crypto order flow imbalance computed")
@@ -391,7 +361,6 @@ print(f"\n Quintiles created for portfolio analysis")
 
 
 ```python
-# Predictability Analysis: Correlation with Future Returns
 horizons = [1, 5, 15, 30, 60]
 correlations = []
 t_stats = []
@@ -403,7 +372,6 @@ for h in horizons:
         valid_data = df[['order_imbalance_norm', fwd_col]].dropna()
         corr = valid_data['order_imbalance_norm'].corr(valid_data[fwd_col])
         
-        # T-test for significance
         n = len(valid_data)
         t_stat = corr * np.sqrt(n - 2) / np.sqrt(1 - corr**2)
         p_val = 2 * (1 - stats.t.cdf(abs(t_stat), n - 2))
@@ -416,7 +384,6 @@ for h in horizons:
         t_stats.append(np.nan)
         p_values.append(np.nan)
 
-# Create results DataFrame
 predictability_df = pd.DataFrame({
     'Horizon (min)': horizons,
     'Correlation': correlations,
@@ -453,10 +420,8 @@ print("\n*** p < 0.01, ** p < 0.05, * p < 0.1")
 
 
 ```python
-# Visualization: Imbalance Response Function
 fig, axes = plt.subplots(2, 2, figsize=(16, 12))
 
-# 1. Decay of Predictability
 ax = axes[0, 0]
 ax.plot(predictability_df['Horizon (min)'], predictability_df['Correlation'], 
         marker='o', linewidth=2, markersize=8, color='darkblue')
@@ -467,15 +432,13 @@ ax.set_title('Order Imbalance Predictability Decay', fontsize=14, fontweight='bo
 ax.grid(True, alpha=0.3)
 ax.set_xticks(horizons)
 
-# Add significance markers
 for i, row in predictability_df.iterrows():
     if row['Significant (5%)']:
         ax.text(row['Horizon (min)'], row['Correlation'], row['Significant (5%)'], 
                 ha='center', va='bottom', fontsize=14, color='darkred')
 
-# 2. Quintile Performance
 ax = axes[0, 1]
-quintile_returns = df.groupby('imbalance_quintile')['fwd_return_5min'].mean() * 10000  # bps
+quintile_returns = df.groupby('imbalance_quintile')['fwd_return_5min'].mean() * 10000
 quintile_returns.plot(kind='bar', ax=ax, color=['red', 'orange', 'gray', 'lightgreen', 'darkgreen'])
 ax.set_xlabel('Order Imbalance Quintile', fontsize=12)
 ax.set_ylabel('Mean 5-min Forward Return (bps)', fontsize=12)
@@ -484,7 +447,6 @@ ax.axhline(y=0, color='black', linestyle='-', linewidth=0.8)
 ax.grid(True, alpha=0.3, axis='y')
 ax.set_xticklabels(ax.get_xticklabels(), rotation=45)
 
-# 3. Scatter: Imbalance vs Forward Returns
 ax = axes[1, 0]
 sample = df.sample(min(5000, len(df)))
 scatter = ax.scatter(sample['order_imbalance_norm'], sample['fwd_return_5min'] * 10000,
@@ -496,7 +458,6 @@ ax.axhline(y=0, color='red', linestyle='--', alpha=0.5)
 ax.axvline(x=0, color='red', linestyle='--', alpha=0.5)
 plt.colorbar(scatter, ax=ax, label='Volatility')
 
-# Add regression line
 z = np.polyfit(df['order_imbalance_norm'].dropna(), 
                df['fwd_return_5min'].dropna() * 10000, 1)
 p = np.poly1d(z)
@@ -565,10 +526,8 @@ We analyze:
 
 
 ```python
-# Crypto VWAP Analysis (24/7 markets)
 print(" Analyzing crypto VWAP dynamics...")
 
-# Multiple VWAP timeframes for crypto (24/7 markets)
 df['date'] = df.index.date
 
 # 1. Daily VWAP (reset each day)
@@ -579,25 +538,19 @@ df['daily_vwap'] = df.groupby('date').apply(
 # 2. Use pre-calculated rolling VWAPs
 if 'vwap_24h' in df.columns and 'vwap_1h' in df.columns:
     print(" Using 24h and 1h rolling VWAPs")
-    # VWAP distances for multiple timeframes
     df['vwap_distance_24h'] = (df['close'] - df['vwap_24h']) / df['vwap_24h'] * 10000
     df['vwap_distance_1h'] = (df['close'] - df['vwap_1h']) / df['vwap_1h'] * 10000
-    df['vwap_distance'] = df['vwap_distance_1h']  # Primary analysis on 1h VWAP
+    df['vwap_distance'] = df['vwap_distance_1h']
 else:
-    # Fallback to daily VWAP
     df['vwap_distance'] = (df['close'] - df['daily_vwap']) / df['daily_vwap'] * 10000
 
-# Lagged distance for mean reversion analysis
 df['vwap_distance_lag1'] = df['vwap_distance'].shift(1)
 df['vwap_distance_lag5'] = df['vwap_distance'].shift(5)
 
-# Price change after VWAP deviation
 df['return_after_vwap_dev'] = df['fwd_return_5min']
 
-# Volume quintiles for conditional analysis
 df['volume_quintile'] = pd.qcut(df['volume'], q=5, labels=['Very Low', 'Low', 'Medium', 'High', 'Very High'], duplicates='drop')
 
-# VWAP distance quintiles
 df['vwap_dist_quintile'] = pd.qcut(df['vwap_distance'], q=5, 
                                      labels=['Far Below', 'Below', 'Near', 'Above', 'Far Above'], 
                                      duplicates='drop')
@@ -606,14 +559,12 @@ print(" Crypto VWAP features calculated")
 print(f"\n VWAP Distance Statistics (bps):")
 print(df['vwap_distance'].describe())
 
-# Crypto-specific VWAP insights
 if 'vwap_distance_24h' in df.columns:
     print(f"\n Multi-timeframe VWAP analysis:")
     print(f"   • 1h VWAP distance std: {df['vwap_distance_1h'].std():.2f} bps")
     print(f"   • 24h VWAP distance std: {df['vwap_distance_24h'].std():.2f} bps")
     print(f"   • Correlation (1h vs 24h): {df['vwap_distance_1h'].corr(df['vwap_distance_24h']):.3f}")
 
-# Mean Reversion Analysis
 clean_data = df[['vwap_distance_lag1', 'vwap_distance']].dropna()
 reversion_corr = clean_data['vwap_distance_lag1'].corr(clean_data['vwap_distance'])
 
@@ -621,7 +572,6 @@ print(f"\n Crypto VWAP Mean Reversion")
 print(f"Autocorrelation (lag 1): {reversion_corr:.4f}")
 print(f"{'Strong mean reversion' if reversion_corr > 0 else 'Momentum/trending'} detected")
 
-# Half-life calculation (AR(1) model)
 if reversion_corr > 0 and reversion_corr < 1:
     half_life = -np.log(2) / np.log(reversion_corr)
     print(f"Estimated half-life: {half_life:.2f} minutes")
@@ -658,12 +608,10 @@ if reversion_corr > 0 and reversion_corr < 1:
 
 
 ```python
-# VWAP Drift Visualizations
 fig, axes = plt.subplots(2, 2, figsize=(16, 12))
 
-# 1. VWAP Distance Over Time (sample day)
 ax = axes[0, 0]
-sample_day = df[df['date'] == df['date'].unique()[5]].copy()  # Pick a representative day
+sample_day = df[df['date'] == df['date'].unique()[5]].copy()
 ax.plot(sample_day.index, sample_day['close'], label='Price', linewidth=2, color='blue')
 ax.plot(sample_day.index, sample_day['daily_vwap'], label='VWAP', linewidth=2, 
         color='red', linestyle='--')
@@ -697,7 +645,6 @@ ax.set_title(f'VWAP Mean Reversion (ρ={reversion_corr:.3f})', fontsize=14, font
 ax.axhline(y=0, color='red', linestyle='--', alpha=0.5)
 ax.axvline(x=0, color='red', linestyle='--', alpha=0.5)
 
-# Add regression line
 clean = df[['vwap_distance_lag1', 'vwap_distance']].dropna()
 z = np.polyfit(clean['vwap_distance_lag1'], clean['vwap_distance'], 1)
 p = np.poly1d(z)
@@ -765,9 +712,6 @@ We identify minutes with:
 
 
 ```python
-# Intraday Seasonality Analysis
-
-# Calculate minute-of-day returns
 seasonality = df.groupby('minute_of_day').agg({
     'returns_1min': ['mean', 'std', 'count'],
     'fwd_return_5min': ['mean', 'std'],
@@ -779,21 +723,16 @@ seasonality = df.groupby('minute_of_day').agg({
 seasonality.columns = ['minute_of_day', 'mean_return', 'std_return', 'count', 
                        'mean_fwd_5min', 'std_fwd_5min', 'mean_volume', 'mean_spread', 'mean_volatility']
 
-# Convert to bps
 seasonality['mean_return_bps'] = seasonality['mean_return'] * 10000
 seasonality['mean_fwd_5min_bps'] = seasonality['mean_fwd_5min'] * 10000
 
-# Calculate t-statistics
 seasonality['t_stat'] = (seasonality['mean_return'] / 
                          (seasonality['std_return'] / np.sqrt(seasonality['count'])))
 
-# Statistical significance
-seasonality['significant'] = np.abs(seasonality['t_stat']) > 1.96  # 95% confidence
+seasonality['significant'] = np.abs(seasonality['t_stat']) > 1.96
 
-# Sharpe ratio (annualized, assuming 390 trading minutes per day)
 seasonality['sharpe'] = seasonality['mean_return'] / seasonality['std_return'] * np.sqrt(390)
 
-# Convert minute_of_day to clock time
 def minute_to_time(minute):
     hour = minute // 60
     min_part = minute % 60
@@ -807,9 +746,8 @@ print("=" * 80)
 print(f"\nTotal minutes analyzed: {len(seasonality)}")
 print(f"Significant minutes (95% confidence): {seasonality['significant'].sum()}")
 
-# Identify "hot minutes"
 hot_minutes = seasonality[
-    (np.abs(seasonality['mean_return_bps']) > 1.5) &  # > 1.5 bps
+    (np.abs(seasonality['mean_return_bps']) > 1.5) &
     (seasonality['significant']) &
     (np.abs(seasonality['sharpe']) > 0.3)
 ].sort_values('mean_return_bps', ascending=False)
@@ -860,7 +798,6 @@ print(hot_minutes[['time', 'mean_return_bps', 't_stat', 'sharpe', 'mean_volume']
 
 
 ```python
-# Intraday Seasonality Visualizations
 fig, axes = plt.subplots(2, 2, figsize=(18, 12))
 
 # 1. Returns by Minute of Day (Line Plot)
@@ -878,13 +815,11 @@ ax.set_title('Intraday Return Pattern (by Minute)', fontsize=14, fontweight='bol
 ax.legend()
 ax.grid(True, alpha=0.3)
 
-# Mark market open and close
 ax.axvline(x=570, color='green', linestyle='--', alpha=0.5, label='Market Open')
 ax.axvline(x=960, color='red', linestyle='--', alpha=0.5, label='Market Close')
 
 # 2. Heatmap: Returns by Hour and Minute
 ax = axes[0, 1]
-# Create hour x minute grid
 heatmap_data = df.groupby(['hour', 'minute'])['returns_1min'].mean().unstack() * 10000
 sns.heatmap(heatmap_data, cmap='RdYlGn', center=0, ax=ax, cbar_kws={'label': 'Return (bps)'})
 ax.set_xlabel('Minute of Hour', fontsize=12)
@@ -908,7 +843,6 @@ ax.tick_params(axis='y', labelcolor='blue')
 ax2.tick_params(axis='y', labelcolor='red')
 ax.grid(True, alpha=0.3)
 
-# Combined legend
 lines = line1 + line2
 labels = [l.get_label() for l in lines]
 ax.legend(lines, labels, loc='upper right')
@@ -978,11 +912,8 @@ This approach is **data-driven** and avoids arbitrary threshold-based regime def
 
 
 ```python
-# Feature Engineering for Regime Detection
-
-# 1. Volatility Features
-df['realized_vol'] = df['returns_1min'].rolling(30).std() * np.sqrt(390)  # 30-min rolling
-df['vol_of_vol'] = df['realized_vol'].rolling(30).std()  # Volatility of volatility
+df['realized_vol'] = df['returns_1min'].rolling(30).std() * np.sqrt(390)
+df['vol_of_vol'] = df['realized_vol'].rolling(30).std()
 
 # 2. Liquidity Features
 df['spread_ma'] = df['spread'].rolling(30).mean()
@@ -1004,7 +935,6 @@ df['volume_trend'] = df['volume'].rolling(30).apply(lambda x: np.polyfit(range(l
 df['vwap_distance_abs'] = np.abs(df['vwap_distance'])
 df['vwap_distance_vol'] = df['vwap_distance'].rolling(30).std()
 
-# Select features for regime detection
 regime_features = [
     'realized_vol',
     'vol_of_vol',
@@ -1018,7 +948,6 @@ regime_features = [
     'vwap_distance_vol'
 ]
 
-# Prepare data
 df_regime = df[regime_features].dropna()
 print(f" Regime features engineered: {len(regime_features)} dimensions")
 print(f"Sample size: {len(df_regime):,} observations")
@@ -1031,15 +960,12 @@ print(f"Sample size: {len(df_regime):,} observations")
 
 
 ```python
-# Standardize features
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(df_regime)
 
-# PCA for dimensionality reduction and visualization
 pca = PCA(n_components=5)
 X_pca = pca.fit_transform(X_scaled)
 
-# Explained variance
 explained_var = pca.explained_variance_ratio_
 cumulative_var = np.cumsum(explained_var)
 
@@ -1050,22 +976,19 @@ print(f"\nExplained Variance by Component:")
 for i, (var, cum_var) in enumerate(zip(explained_var, cumulative_var)):
     print(f"  PC{i+1}: {var:.3f} (Cumulative: {cum_var:.3f})")
 
-# Determine optimal number of clusters using elbow method
 inertias = []
 silhouette_scores = []
 K_range = range(2, 8)
 
 for k in K_range:
     kmeans = KMeans(n_clusters=k, random_state=42, n_init=10)
-    kmeans.fit(X_pca[:, :3])  # Use first 3 PCs
+    kmeans.fit(X_pca[:, :3])
     inertias.append(kmeans.inertia_)
 
-# Use 4 clusters (typical for microstructure regimes)
 n_clusters = 4
 kmeans = KMeans(n_clusters=n_clusters, random_state=42, n_init=10)
 regime_labels = kmeans.fit_predict(X_pca[:, :3])
 
-# Add regime labels back to dataframe
 df_regime['regime'] = regime_labels
 df.loc[df_regime.index, 'regime'] = regime_labels
 
@@ -1098,15 +1021,12 @@ print(df_regime['regime'].value_counts().sort_index())
 
 
 ```python
-# Regime Characterization
 print("=" * 80)
 print("REGIME CHARACTERIZATION")
 print("=" * 80)
 
-# Create aligned dataframe for regime analysis
 df_aligned = df.loc[df_regime.index].copy()
 
-# Define regime names based on characteristics
 regime_profiles = df_aligned.groupby('regime').agg({
     'realized_vol': 'mean',
     'spread_ma': 'mean',
@@ -1116,7 +1036,6 @@ regime_profiles = df_aligned.groupby('regime').agg({
     'fwd_return_5min': 'mean'
 })
 
-# Assign descriptive names
 regime_names = {}
 for regime in range(n_clusters):
     vol = regime_profiles.loc[regime, ('realized_vol', 'mean')]
@@ -1212,7 +1131,6 @@ for regime in range(n_clusters):
 
 
 ```python
-# Regime Visualizations
 fig = plt.figure(figsize=(18, 14))
 gs = fig.add_gridspec(3, 3, hspace=0.3, wspace=0.3)
 
@@ -1312,7 +1230,6 @@ print("\n Regime detection analysis complete")
 
 ---
 
-# Conclusion & Key Findings
 
 ## Executive Summary of Results
 
@@ -1420,7 +1337,6 @@ Based on these findings, an optimal microstructure-aware trading system would:
 
 
 ```python
-# Summary Statistics Dashboard
 print("=" * 80)
 print("COMPREHENSIVE ANALYSIS SUMMARY")
 print("=" * 80)
@@ -1445,19 +1361,15 @@ print(f"Average Spread: {df['spread'].mean() * 10000:.2f} bps")
 print("\n SIGNAL QUALITY METRICS")
 print("-" * 60)
 
-# Order Imbalance Signal
 imb_ic = df[['order_imbalance_norm', 'fwd_return_5min']].dropna().corr().iloc[0, 1]
 print(f"Order Imbalance IC (5-min): {imb_ic:.4f}")
 
-# VWAP Signal
 vwap_reversion = df[['vwap_distance_lag1', 'fwd_return_5min']].dropna().corr().iloc[0, 1]
 print(f"VWAP Mean Reversion Signal: {-vwap_reversion:.4f}")
 
-# Seasonality Signal Quality
 season_signal_ratio = seasonality['significant'].sum() / len(seasonality)
 print(f"Significant Seasonal Minutes: {season_signal_ratio:.1%}")
 
-# Regime Differentiation
 regime_return_spread = (df_aligned.groupby('regime')['fwd_return_5min'].mean().max() - 
                         df_aligned.groupby('regime')['fwd_return_5min'].mean().min()) * 10000
 print(f"Regime Return Spread: {regime_return_spread:.2f} bps")
@@ -1481,16 +1393,13 @@ print("\n" + "=" * 80)
 print("Analysis complete. Ready for institutional presentation.")
 print("=" * 80)
 
-# Export results for research report generation
 print("\nExporting results to files...")
 
-# Create experiment-specific results directory
 import os
 experiment_name = 'crypto_microstructure_analysis'
 results_dir = f'../../results/{experiment_name}'
 os.makedirs(results_dir, exist_ok=True)
 
-# Also create subdirectories for different types of outputs
 os.makedirs(f'{results_dir}/data', exist_ok=True)
 os.makedirs(f'{results_dir}/images', exist_ok=True)
 os.makedirs(f'{results_dir}/reports', exist_ok=True)
@@ -1611,10 +1520,8 @@ with open(f'{results_dir}/reports/analysis_report.txt', 'w') as f:
 # 6. Re-generate and export all key visualizations for research reports
 print("\\nExporting visualizations...")
 
-# Order Book Imbalance Analysis
 fig, axes = plt.subplots(2, 2, figsize=(16, 12))
 
-# Decay of Predictability
 ax = axes[0, 0]
 ax.plot(predictability_df['Horizon (min)'], predictability_df['Correlation'], 
         marker='o', linewidth=2, markersize=8, color='blue')
@@ -1624,7 +1531,6 @@ ax.set_ylabel('Information Coefficient', fontsize=12)
 ax.set_title('Order Flow Predictability Decay', fontsize=14, fontweight='bold')
 ax.grid(True, alpha=0.3)
 
-# Statistical Significance
 ax = axes[0, 1]
 colors = ['green' if p < 0.05 else 'red' for p in predictability_df['P-Value']]
 bars = ax.bar(predictability_df['Horizon (min)'], predictability_df['T-Statistic'], 
@@ -1637,7 +1543,6 @@ ax.set_title('Statistical Significance', fontsize=14, fontweight='bold')
 ax.legend()
 ax.grid(True, alpha=0.3)
 
-# Imbalance Distribution
 ax = axes[1, 0]
 ax.hist(df['order_imbalance'].dropna(), bins=50, alpha=0.7, color='skyblue', edgecolor='black')
 ax.axvline(x=0, color='red', linestyle='--', linewidth=2)
@@ -1646,7 +1551,6 @@ ax.set_ylabel('Frequency', fontsize=12)
 ax.set_title('Distribution of Order Flow Imbalance', fontsize=14, fontweight='bold')
 ax.grid(True, alpha=0.3)
 
-# Response Function
 ax = axes[1, 1]
 horizons = [1, 5, 15, 30, 60]
 correlations = [predictability_df[predictability_df['Horizon (min)'] == h]['Correlation'].iloc[0] for h in horizons]
@@ -1662,10 +1566,8 @@ plt.savefig(f'{results_dir}/images/01_order_imbalance_analysis.png',
             dpi=300, bbox_inches='tight', facecolor='white')
 plt.close()
 
-# VWAP Analysis
 fig, axes = plt.subplots(2, 2, figsize=(16, 12))
 
-# VWAP Distance Over Time (sample day)
 ax = axes[0, 0]
 sample_day = df[df['date'] == df['date'].unique()[5]].copy()
 ax.plot(sample_day.index, sample_day['close'], label='Price', linewidth=2, color='blue')
@@ -1679,7 +1581,6 @@ ax.set_title('Price vs VWAP (Sample Day)', fontsize=14, fontweight='bold')
 ax.legend()
 ax.grid(True, alpha=0.3)
 
-# VWAP Distance Distribution
 ax = axes[0, 1]
 ax.hist(df['vwap_distance'].dropna(), bins=50, alpha=0.7, color='lightcoral', edgecolor='black')
 ax.axvline(x=0, color='red', linestyle='--', linewidth=2)
@@ -1688,7 +1589,6 @@ ax.set_ylabel('Frequency', fontsize=12)
 ax.set_title('Distribution of VWAP Distance', fontsize=14, fontweight='bold')
 ax.grid(True, alpha=0.3)
 
-# Mean Reversion Analysis
 ax = axes[1, 0]
 vwap_bins = pd.qcut(df['vwap_distance'].dropna(), q=10, labels=False)
 reversion_by_distance = df.groupby(vwap_bins)['fwd_return_5min'].mean() * 10000
@@ -1700,7 +1600,6 @@ ax.set_ylabel('5-min Forward Return (bps)', fontsize=12)
 ax.set_title('VWAP Mean Reversion Effect', fontsize=14, fontweight='bold')
 ax.grid(True, alpha=0.3)
 
-# Autocorrelation
 ax = axes[1, 1]
 lags = range(1, 21)
 autocorrs = [df['vwap_distance'].autocorr(lag=lag) for lag in lags]
@@ -1716,10 +1615,8 @@ plt.savefig(f'{results_dir}/images/02_vwap_analysis.png',
             dpi=300, bbox_inches='tight', facecolor='white')
 plt.close()
 
-# Intraday Seasonality
 fig, axes = plt.subplots(2, 2, figsize=(18, 12))
 
-# Returns by Minute Heatmap
 ax = axes[0, 0]
 seasonality_matrix = seasonality['mean_return'].values.reshape(24, 60) * 10000
 im = ax.imshow(seasonality_matrix, cmap='RdYlBu_r', aspect='auto')
@@ -1728,7 +1625,6 @@ ax.set_ylabel('Hour of Day', fontsize=12)
 ax.set_title('Intraday Return Seasonality (bps)', fontsize=14, fontweight='bold')
 plt.colorbar(im, ax=ax)
 
-# Significant Minutes
 ax = axes[0, 1]
 significant_returns = seasonality[seasonality['significant']]['mean_return'] * 10000
 ax.scatter(range(len(significant_returns)), significant_returns, 
@@ -1739,7 +1635,6 @@ ax.set_ylabel('Mean Return (bps)', fontsize=12)
 ax.set_title(f'Significant Minutes ({len(significant_returns)} total)', fontsize=14, fontweight='bold')
 ax.grid(True, alpha=0.3)
 
-# Sharpe Ratios
 ax = axes[1, 0]
 ax.plot(seasonality.index, seasonality['sharpe'], linewidth=1, alpha=0.7, color='blue')
 ax.axhline(y=0, color='red', linestyle='--', alpha=0.7)
@@ -1748,7 +1643,6 @@ ax.set_ylabel('Sharpe Ratio', fontsize=12)
 ax.set_title('Intraday Sharpe Ratios', fontsize=14, fontweight='bold')
 ax.grid(True, alpha=0.3)
 
-# Hot vs Cold Minutes
 ax = axes[1, 1]
 hot_minutes = seasonality[seasonality['mean_return'] > seasonality['mean_return'].quantile(0.95)]
 cold_minutes = seasonality[seasonality['mean_return'] < seasonality['mean_return'].quantile(0.05)]
@@ -1768,10 +1662,8 @@ plt.savefig(f'{results_dir}/images/03_intraday_seasonality.png',
             dpi=300, bbox_inches='tight', facecolor='white')
 plt.close()
 
-# Regime Analysis
 fig, axes = plt.subplots(2, 2, figsize=(16, 12))
 
-# Regime Scatter Plot
 ax = axes[0, 0]
 colors = ['red', 'blue', 'green', 'orange'][:n_clusters]
 for regime in range(n_clusters):
@@ -1784,7 +1676,6 @@ ax.set_title('Market Regime Identification', fontsize=14, fontweight='bold')
 ax.legend()
 ax.grid(True, alpha=0.3)
 
-# Regime Returns
 ax = axes[0, 1]
 regime_returns = [df_aligned[df_aligned['regime'] == i]['returns_1min'].mean() * 10000 for i in range(n_clusters)]
 bars = ax.bar(range(n_clusters), regime_returns, color=colors, alpha=0.7, edgecolor='black')
@@ -1795,7 +1686,6 @@ ax.set_xticks(range(n_clusters))
 ax.set_xticklabels([regime_names[i] for i in range(n_clusters)], rotation=45)
 ax.grid(True, alpha=0.3, axis='y')
 
-# Regime Transitions
 ax = axes[1, 0]
 regime_series = df_aligned['regime']
 transitions = pd.crosstab(regime_series, regime_series.shift(-1), normalize='index')
@@ -1809,9 +1699,8 @@ ax.set_xticklabels([regime_names[i] for i in range(n_clusters)], rotation=45)
 ax.set_yticklabels([regime_names[i] for i in range(n_clusters)])
 plt.colorbar(im, ax=ax)
 
-# Regime Time Series
 ax = axes[1, 1]
-sample_period = df_aligned.iloc[-1440:].copy()  # Last day
+sample_period = df_aligned.iloc[-1440:].copy()
 ax.plot(sample_period.index, sample_period['close'], linewidth=1, color='black', alpha=0.7)
 for regime in range(n_clusters):
     regime_points = sample_period[sample_period['regime'] == regime]
@@ -1847,12 +1736,10 @@ print("\\nAll files ready for research report generation!")
 # 7. Export notebook as HTML for easy sharing and presentation
 print("\\nExporting notebook as HTML...")
 
-# Export to results directory
 try:
     import subprocess
     import sys
     
-    # Export to results directory
     html_output_results = f'{results_dir}/crypto_microstructure_analysis.html'
     subprocess.run([
         sys.executable, '-m', 'jupyter', 'nbconvert', 
