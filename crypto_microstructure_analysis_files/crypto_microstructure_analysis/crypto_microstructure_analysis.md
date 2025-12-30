@@ -19,7 +19,7 @@ This notebook presents a comprehensive analysis of **cryptocurrency market micro
 
 ### Four Critical Research Areas:
 
-1. **🔄 Crypto Order Flow Imbalance** - Using real buy/sell pressure data from Binance API
+1. **Crypto Order Flow Imbalance** - Using real buy/sell pressure data from Binance API
 2. ** Multi-Timeframe VWAP Dynamics** - 1-hour and 24-hour VWAP analysis for 24/7 markets
 3. ** 24/7 Seasonality Patterns** - Global trading session effects and weekend dynamics
 4. ** Crypto Regime Detection** - Volatility clustering and liquidity regime identification
@@ -113,8 +113,8 @@ try:
     print(f"   • Buy/sell pressure range: {df['buy_sell_ratio'].min():.3f} - {df['buy_sell_ratio'].max():.3f}")
     
 except FileNotFoundError:
-    print(f"\n❌ Error: {DATA_FILE} not found!")
-    print("\n📥 To get BTC data:")
+    print(f"\nError: {DATA_FILE} not found!")
+    print("\nTo get BTC data:")
     print("1. Run: python fetch_data_crypto.py")
     print("   (No API key needed - uses Binance public API)")
     print("\n  Download time: ~2-5 minutes")
@@ -814,7 +814,7 @@ hot_minutes = seasonality[
     (np.abs(seasonality['sharpe']) > 0.3)
 ].sort_values('mean_return_bps', ascending=False)
 
-print(f"\n🔥 HOT MINUTES (Top Alpha Opportunities):\n")
+print(f"\nHOT MINUTES (Top Alpha Opportunities):\n")
 print(hot_minutes[['time', 'mean_return_bps', 't_stat', 'sharpe', 'mean_volume']].head(10).to_string(index=False))
 
 print(f"\n  COLD MINUTES (Negative Alpha):\n")
@@ -829,7 +829,7 @@ print(hot_minutes[['time', 'mean_return_bps', 't_stat', 'sharpe', 'mean_volume']
     Total minutes analyzed: 1440
     Significant minutes (95% confidence): 80
     
-    🔥 HOT MINUTES (Top Alpha Opportunities):
+    HOT MINUTES (Top Alpha Opportunities):
     
      time  mean_return_bps   t_stat    sharpe  mean_volume
     07:58        75.773651 3.418333 18.722980   131.862035
